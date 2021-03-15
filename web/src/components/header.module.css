@@ -1,0 +1,18 @@
+.header {
+    position: fixed;
+    width: calc(100% - (var(--padding)) * 2);
+    margin: var(--padding);
+    z-index: 99;
+    display: grid;
+    grid-template-columns: var(--header-column);
+
+    visibility: hidden;
+}
+
+.details {
+    display: var(--visibility);
+}
+
+.date {
+    justify-self: var(--justify);
+}

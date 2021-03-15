@@ -1,0 +1,46 @@
+.figure {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    padding-bottom: var(--padding);
+    /* visibility: hidden; */
+}
+
+.figcaption {
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: var(--five-column);
+    grid-auto-rows: minmax(var(--row-height), auto);
+    padding-bottom: var(--figcaption-padding);
+}
+
+.gallery {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 0.1fr));
+  grid-gap: var(--padding);
+  grid-auto-flow: dense;
+}
+
+.gallery > div {
+  cursor: crosshair;
+  pointer-events: all;
+}
+
+.gallery > div:hover {
+  outline: 1px solid #000000;
+}
+
+.preview {
+  width: 100%;
+  display: grid;
+  grid-template-columns: var(--image-column);
+  margin-bottom: var(--padding);
+}
+
+.small {
+    grid-column: 1 / 3;
+    margin-right: var(--image-padding);
+}

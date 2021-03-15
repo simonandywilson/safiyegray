@@ -1,0 +1,150 @@
+/*----------------------------------------
+Variables
+----------------------------------------*/
+
+/* Small Screen */
+@media only screen and (max-width: 799px) {
+    :root {
+        --font-size: 0.75rem;
+        --font-size-times: 0.8rem;
+        --subtitle: 0.65rem;
+        --smallcaps-font-size: 0.9rem;
+        --line-height: 1rem;
+
+        --row-height: 13px;
+        --row-padding: 10px;
+
+        --padding: 13px;
+        --figcaption-padding: 5px;
+        --plus-padding: 10px;
+
+        --visibility: none;
+        --visibility-alt: block;
+        --justify: end;
+
+        --three-column: 1fr 1fr 0.3fr;
+        --four-column: 0.7fr 0.3fr 1fr 0.3fr;
+        --five-column: 0.7fr 0.3fr 0.7fr 0.3fr 0.3fr;
+
+        --header-column: var(--two-column);
+
+        --project-column: var(--two-column);
+        
+        --slider-column: var(--one-column);
+        --expand-padding: var(--padding);
+        --description-padding: var(--padding);
+
+        --figcaption-column: var(--two-column-alt);
+        --image-column: var(--three-column);
+        --image-padding: 0;
+        --materials-padding: 0;
+        --materials-span: 1 / 3;
+
+        --bio-column: var(--four-column-alt);
+        --row-column: var(--two-column-alt);
+    }
+}
+
+/* Large Screen */
+@media only screen and (min-width: 800px) {
+    :root {
+        --font-size: 0.75rem;
+        --font-size-times: 0.8rem;
+        --subtitle: 0.65rem;
+        --smallcaps-font-size: 0.9rem;
+        --line-height: 1rem;
+
+        --row-height: 15px;
+        --row-padding: 10px;
+
+        --padding: 15px;
+        --figcaption-padding: 5px;
+        --plus-padding: 10px;
+
+        --visibility: block;
+        --visibility-alt: none;
+        --justify: start;
+
+        --header-column: var(--three-column);
+
+        --project-column: var(--three-column);
+
+        --slider-column: var(--three-column);
+        --expand-padding: 0;
+        --description-padding: 0;
+
+        --figcaption-column: var(--five-column);
+        --image-column: var(--four-column);
+        --image-padding: var(--padding);
+        --materials-padding: var(--padding);
+        --materials-span: 0;
+
+        --bio-column: var(--four-column);
+        --row-column: var(--four-column);
+
+    }
+}
+
+:root {
+    --one-column: 1fr;
+    --two-column-alt: 1fr 0.4fr;
+    --two-column: 1fr 1fr;
+    --three-column: 1fr 1fr 0.3fr;
+    --four-column-alt: 0.7fr 0.5fr 0.5fr 0.2fr;
+    --four-column: 0.7fr 0.3fr 1fr 0.3fr;
+    --five-column: 0.7fr 0.3fr 0.7fr 0.3fr 0.3fr;
+}
+
+/*----------------------------------------
+Main
+----------------------------------------*/
+
+html body {
+    position: absolute;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    font-family: helvetica;
+    font-size: var(--font-size);
+    line-height: var(--line-height);
+}
+
+table {
+    width: 100%;
+    border: none;
+    margin: 0;
+    position: absolute;
+    padding: var(--padding);
+    padding-top: calc((var(--padding) * 2) + var(--row-padding));
+    border-spacing: 0;
+}
+
+/*----------------------------------------
+Typography
+----------------------------------------*/
+
+p {
+    white-space: pre-wrap;
+}
+
+.times {
+    font-family: times;
+    font-size: var(--font-size-times);
+    line-height: var(--line-height);
+}
+
+a {
+    width: max-content;
+    color: #000000;
+    text-decoration: underline;
+    transition: 0.5s;
+}
+
+a:visited,
+a:active {
+    color: #000000;
+}
+
+a:hover {
+    color: #ffffff;
+}
