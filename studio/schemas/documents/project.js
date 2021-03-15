@@ -4,7 +4,7 @@ export default {
     type: "document",
     fieldsets: [
         {
-            name: "homepage",
+            name: "info",
             title: "Project Information",
             options: {
                 collapsible: true,
@@ -12,45 +12,14 @@ export default {
                 columns: 2,
             },
         },
-        {
-            name: "description",
-            title: "Image Slider & Description",
-            options: {
-                collapsible: true,
-                collapsed: false,
-            },
-        },
-        {
-            name: "images",
-            title: "Project Images",
-            options: {
-                collapsible: true,
-                collapsed: false,
-            },
-        },
-        {
-            name: "gallery",
-            title: "Project Gallery",
-            options: {
-                collapsible: true,
-                collapsed: false,
-            },
-        },
     ],
     fields: [
+        // Title
         {
-            // Title
             title: "Title",
             name: "title",
             type: "string",
-            fieldset: "homepage",
-        },
-        // Location
-        {
-            title: "Location",
-            name: "location",
-            type: "string",
-            fieldset: "homepage",
+            fieldset: "info",
         },
         // Date
         {
@@ -60,14 +29,33 @@ export default {
             options: {
                 dateFormat: "yyyy",
             },
-            fieldset: "homepage",
+            fieldset: "info",
         },
-        // Image Slider
+        // Slug
         {
-            title: "Slider",
-            name: "slider",
-            type: "slider",
-            fieldset: "description",
+            title: "Slug",
+            name: "slug",
+            type: "slug",
+            description: "www.safiyegray.com/<slug>",
+            options: {
+                source: "title",
+                slugify: (input) => input.toLowerCase().replace(/\s+/g, "-").slice(0, 200),
+            },
+            fieldset: "info",
+        },
+        // Tags
+        {
+            title: "Tags",
+            name: "tags",
+            type: "tags",
+            fieldset: "info",
+        },
+        // Thumbnail
+        {
+            title: "Thumbnail",
+            name: "thumbnail",
+            type: "image",
+            description: "Displayed on homepage, will be cropped to portrait 3:2 aspect ratio.",
         },
         // Description
         {
@@ -76,27 +64,12 @@ export default {
             type: "description",
             description:
                 "Use Shift+Return to add a line break without adding paragraph formatting and spacing.",
-            fieldset: "description",
         },
         // Images
         {
             title: "Images",
             name: "images",
             type: "images",
-            fieldset: "images",
-        },
-        // Gallery
-        {
-            title: "Gallery Title",
-            name: "gallerytitle",
-            type: "string",
-            fieldset: "gallery",
-        },
-        {
-            title: "Gallery",
-            name: "gallery",
-            type: "gallery",
-            fieldset: "gallery",
         },
         // Order fields,
         {
@@ -109,14 +82,14 @@ export default {
     preview: {
         select: {
             title: "title",
-            slider: "slider",
+            thumbnail: "thumbnail",
             date: "date",
         },
         prepare(selection) {
-            const { title, slider, date } = selection;
+            const { title, thumbnail, date } = selection;
             return {
                 title: title ?? "Project",
-                media: slider?.[0]?.asset,
+                media: thumbnail?.[0]?.asset,
                 subtitle: date?.split("-")?.[0],
             };
         },

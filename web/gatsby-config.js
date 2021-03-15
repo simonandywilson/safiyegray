@@ -1,13 +1,13 @@
 module.exports = {
     siteMetadata: {
-        title: "Hamish Pearch",
-        siteUrl: "https://hamishpearch-web.netlify.app",
+        title: "Safiye Gray",
+        siteUrl: "https://safiyegray-web.netlify.app",
     },
     plugins: [
         {
             resolve: "gatsby-source-sanity",
             options: {
-                projectId: "39ib82ym",
+                projectId: "mre6jo4q",
                 dataset: "production",
             },
         },
@@ -19,8 +19,8 @@ module.exports = {
         {
             resolve: `gatsby-plugin-manifest`,
             options: {
-                name: `Hamish Pearch`,
-                short_name: `Hamish Pearch`,
+                name: `Safiye Gray`,
+                short_name: `Safiye Gray`,
                 icon: `src/images/favicon.svg`,
                 start_url: `/`,
                 background_color: `#ffffff`,

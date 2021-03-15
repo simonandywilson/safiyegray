@@ -2,57 +2,51 @@ export default {
     title: "About",
     name: "about",
     type: "document",
-    __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"],
     fieldsets: [
         {
-            name: "bio",
-            title: "Bio",
-            options: {
-                columns: 2,
-            },
-        },
-        {
-            name: "contact",
-            title: "Contact & Social",
+            name: "colours",
+            title: "Colours",
             options: {
                 collapsible: true,
                 collapsed: false,
+                columns: 2,
             },
         },
     ],
+    __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"],
     fields: [
         {
-            // Title
-            title: "Name",
-            name: "name",
-            type: "string",
-            description: "Column 1.",
-            fieldset: "bio",
-        },
-        {
             // Occupation
-            title: "Occupation",
-            name: "occupation",
-            type: "string",
-            description: "Column 2.",
-            fieldset: "bio",
+            title: "Bio",
+            name: "bio",
+            type: "description",
+            description: "Displayed on homepage.",
         },
-        {
-            // Location
-            title: "Location",
-            name: "location",
-            type: "string",
-            description: "Column 3.",
-            fieldset: "bio",
-        },
-        {
-            // DOB
-            title: "Date of Birth",
-            name: "dob",
-            type: "string",
-            description: "Column 4.",
-            fieldset: "bio",
-        },
+        // { title: "Cursor Colour", name: "cursor", type: "color", fieldset: "colours" },
+        // {
+        //     title: "Illustration Tag Colour",
+        //     name: "illustrationColour",
+        //     type: "color",
+        //     fieldset: "colours",
+        // },
+        // {
+        //     title: "Print Tag Colour",
+        //     name: "printColour",
+        //     type: "color",
+        //     fieldset: "colours",
+        // },
+        // {
+        //     title: "Exhibition Tag Colour",
+        //     name: "exhibitionColour",
+        //     type: "color",
+        //     fieldset: "colours",
+        // },
+        // {
+        //     title: "Publication Tag Colour",
+        //     name: "publicationColour",
+        //     type: "color",
+        //     fieldset: "colours",
+        // },
         {
             // CV
             title: "CV",

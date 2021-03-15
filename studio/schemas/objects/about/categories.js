@@ -10,7 +10,6 @@ export default {
             title: "Title",
             name: "title",
             type: "string",
-            description: "This title is for reference, it does not appear on the site.",
         },
         {
             title: "Content",

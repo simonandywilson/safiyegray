@@ -1,45 +1,37 @@
-import createSchema from "part:@sanity/base/schema-creator"
-import schemaTypes from "all:part:@sanity/base/schema-type"
+import createSchema from 'part:@sanity/base/schema-creator'
+import schemaTypes from 'all:part:@sanity/base/schema-type'
 
-import seo from "./documents/seo"
+import project from "./documents/project";
+import tags from "./objects/project/tags";
+import description from "./objects/project/description";
+import images from "./objects/project/images";
+import caption from "./objects/project/caption";
 
-import about from "./documents/about"
-import cv from "./objects/about/cv"
-import categories from "./objects/about/categories"
+import about from "./documents/about";
+import cv from "./objects/about/cv";
+import categories from "./objects/about/categories";
 import category from "./objects/about/category";
-import contact from "./objects/about/contact"
+import contact from "./objects/about/contact";
 import social from "./objects/about/social";
 
-import project from "./documents/project"
-import slider from "./objects/project/slider"
-import description from "./objects/project/description";
-import images from "./objects/project/images"
-import gallery from "./objects/project/gallery";
-
-import basic from "./objects/project/basic"
-import extra from "./objects/project/extra";
-import full from "./objects/project/full"
+import seo from "./documents/seo";
 
 export default createSchema({
-    name: "mySchema",
+    name: "default",
     types: schemaTypes.concat([
-        seo,
-
+        project,
+        tags,
+        description,
+        images,
+        caption,
         about,
+
         cv,
         categories,
         category,
         contact,
         social,
 
-        project,
-        slider,
-        description,
-        images,
-        gallery,
-
-        basic,
-        extra,
-        full,
+        seo,
     ]),
 });
