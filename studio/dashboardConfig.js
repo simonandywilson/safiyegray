@@ -25,15 +25,15 @@ export default {
                 sites: [
                     {
                         title: "Sanity Studio",
-                        apiId: "9891ac5c-b9e0-46d5-9b11-b901142424d0",
-                        buildHookId: "60380cfc2ea8a54897aec4a9",
-                        name: "hamishpearch-studio",
+                        apiId: "a4508f25-a1ee-4bf5-a1b9-69cdb8db0075",
+                        buildHookId: "6050ef3c346eb30c3f76f5f2",
+                        name: "safiyegray-studio",
                     },
                     {
                         title: "Website",
-                        apiId: "24f99cc8-f028-4288-9949-c653e8f8abdf",
-                        buildHookId: "603926571fb69800800cfc0c",
-                        name: "hamishpearch-web",
+                        apiId: "1e9a2140-330f-4589-a15b-6e0f1851d13f",
+                        buildHookId: "6050df69ee00f31b246fff0f",
+                        name: "safiyegray-web",
                     },
                 ],
             },
