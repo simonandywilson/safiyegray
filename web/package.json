@@ -35,8 +35,6 @@
         "react-helmet": "^6.1.0",
         "react-is": "^17.0.1",
         "react-portable-text": "^0.2.3",
-        "sass": "^1.32.8",
-        "styled-components": "^5.2.1",
-        "swiper": "^6.5.0"
+        "styled-components": "^5.2.1"
     }
 }

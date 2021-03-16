@@ -7,14 +7,18 @@ import Header from "../components/header";
 import SEO from "../components/seo";
 import Thumbnail from "../components/thumbnail";
 
+import useWindowSize from "../hooks/useWindowSize";
+
 const Home = () => {
+
     // Get thumbnails
     const {
         allSanityProject: { nodes: projects },
     } = useStaticQuery(getData);
 
-    const viewWidth = window.innerWidth;
-    const viewHeight = window.innerHeight;
+    const { height, width } = useWindowSize();
+    const viewWidth = width;
+    const viewHeight = height;
     
     let counter = 0;
     let t;
