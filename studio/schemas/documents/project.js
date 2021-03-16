@@ -1,3 +1,5 @@
+import { BiPaintRoll } from "react-icons/bi";
+
 export default {
     title: "Project",
     name: "project",
@@ -89,7 +91,7 @@ export default {
             const { title, thumbnail, date } = selection;
             return {
                 title: title ?? "Project",
-                media: thumbnail?.[0]?.asset,
+                media: thumbnail ?? BiPaintRoll,
                 subtitle: date?.split("-")?.[0],
             };
         },

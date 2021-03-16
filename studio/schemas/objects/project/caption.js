@@ -1,3 +1,5 @@
+import { BiRevision } from "react-icons/bi";
+
 export default {
     title: "Image",
     name: "caption",
@@ -7,6 +9,15 @@ export default {
             title: "Title",
             name: "title",
             type: "string",
+            options: {
+                isHighlighted: true,
+            },
+        },
+        {
+            title: "Rotate",
+            name: "rotate",
+            type: "boolean",
+            description: "Is the image allowed to rotate?",
             options: {
                 isHighlighted: true,
             },
@@ -39,4 +50,43 @@ export default {
             validation: (Rule) => Rule.required().warning(`Image alt is required.`),
         },
     ],
+    initialValue: {
+        rotate: false,
+    },
+    preview: {
+        select: {
+            title: "title",
+            media: "asset",
+            subtitle: "size",
+            rotate: "rotate",
+        },
+        prepare(selection) {
+            const { title, media, subtitle, rotate } = selection;
+            let size;
+
+            switch (subtitle) {
+                case "xs":
+                    size = "Extra Small";
+                    break;
+                case "s":
+                    size = "Small";
+                    break;
+                case "m":
+                    size = "Medium";
+                    break;
+                case "l":
+                    size = "Large";
+                    break;
+                case "xl":
+                    size = "Extra Large";
+                    break;
+            }
+
+            return {
+                title: title,
+                media: media,
+                subtitle: !rotate ? size : size + " ⟳",
+            };
+        },
+    },
 };
