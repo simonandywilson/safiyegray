@@ -1,0 +1,10 @@
+.thumbnail {
+    position: absolute;
+    min-width: 20vw;
+    height: auto;
+}
+
+.figcaption {
+    padding-top: var(--padding);
+    text-align: center;
+}

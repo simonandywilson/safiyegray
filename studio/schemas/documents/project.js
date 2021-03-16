@@ -73,13 +73,6 @@ export default {
             name: "images",
             type: "images",
         },
-        // Order fields,
-        {
-            name: "order",
-            title: "Order",
-            type: "number",
-            hidden: true,
-        },
     ],
     preview: {
         select: {

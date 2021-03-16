@@ -1,31 +1,34 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useStaticQuery, graphql } from "gatsby";
-
-import SEO from "../components/seo";
-import Header from "../components/header";
-import Project from "../components/project";
-import Slider from "../components/slider";
-import Row from "../components/row";
-import Gallery from "../components/gallery";
-import Footer from "../components/footer";
-
-import Image from "gatsby-image";
+import style from "../styles/index.module.css";
 import gsap from "gsap";
-import { SwiperSlide } from "swiper/react";
-import "../styles/swiper.scss";
-import "../styles/navigation.scss";
-import "../styles/pagination.scss";
+
+import Header from "../components/header";
+import SEO from "../components/seo";
+import Thumbnail from "../components/thumbnail";
 
 const Home = () => {
+    // Get thumbnails
     const {
         allSanityProject: { nodes: projects },
     } = useStaticQuery(getData);
 
-    const [projectsActive, setProjectsActive] = useState(0);
+    const viewWidth = window.innerWidth;
+    const viewHeight = window.innerHeight;
+    
+    let counter = 0;
+    let t;
 
-    // Add useRef to each <Project>
+    const [state, setState] = useState({
+        initial: true,
+    });
+
+    // Add useRef to each <Thumbnail>
     const projectRefs = useRef([]);
     projectRefs.current = [];
+
+    const thumbnails = [];
+
 
     const addToRefs = (el) => {
         if (el && !projectRefs.current.includes(el)) {
@@ -35,87 +38,145 @@ const Home = () => {
 
     // Initial fade in
     useEffect(() => {
-        gsap.to(projectRefs.current, {
-            autoAlpha: 1,
-            delay: 1.5,
-            duration: 2,
-            stagger: 0.3,
-        });
-    });
+        if (state.initial === true) {
+            const timeline = gsap.timeline({
+                onComplete: function () {
+                    setState({ ...state, initial: false });
+                },
+            });
+            timeline.set(projectRefs.current, {
+                scale: 1,
+                x: (index, target) => {
+                    let left = viewWidth / 2 - target.offsetWidth / 2;
+                    return left;
+                },
+                y: (index, target) => {
+                    let top = viewHeight / 2 - target.offsetHeight / 2;
+                    return top;
+                },
+                rotation: "random(-10, 10)",
+                repeatRefresh: true,
+            });
+
+            // Stack animation
+            timeline.to(projectRefs.current, {
+                duration: 1,
+                opacity: 1,
+                scale: 0.75,
+                x: (index, target) => {
+                    let left = viewWidth / 2 - target.offsetWidth / 2;
+                    let randomX = left + random(-30, 30);
+                    return randomX;
+                },
+                y: (index, target) => {
+                    let top = viewHeight / 2 - target.offsetHeight / 2;
+                    let randomY = top + random(-30, 30);
+                    return randomY;
+                },
+                rotation: "random(-10, 10)",
+                repeatRefresh: true,
+                stagger: 0.2,
+            });
+        }
+    }, [state.initial]);
+
+    useEffect(() => {
+        const padding = 15;
+        if (state.initial === false) {
+            projectRefs.current.forEach((thumb) => {
+                const image = initProperties(thumb);
+                thumbnails.push(image);
+                placeImage(image);
+            });
+
+            // Add properties
+            function initProperties(thumb) {
+                let properties = thumb.getBoundingClientRect();
+                return {
+                    element: thumb,
+                    placed: false,
+                    width: properties.width,
+                    height: properties.height,
+                    left: 0,
+                    top: 0,
+                    right: properties.width,
+                    bottom: properties.height,
+                };
+            }
+            // Place thumbnails
+            function placeImage(image) {
+                image.placed = true;
+                image.left = randomInt(padding, viewWidth - (image.width + padding));
+                image.top = randomInt(padding, viewHeight - (image.height + padding));
+                image.right = image.left + image.width;
+                image.bottom = image.top + image.height;
+
+                // Loop through all thumbnails
+                for (const thumb of thumbnails) {
+                    // Continue if thum is this thumbnail or isn't placed
+                    if (thumb === image || !thumb.placed) {
+                        continue;
+                    }
+
+                    // Collision detected, restart
+                    if (intersects(image, thumb)) {
+                        image.placed = false;
+                        break;
+                    }
+                }
+
+                // Position OK or else restart
+                if (image.placed) {
+                    counter++;
+                    if (counter === projectRefs.current.length && counter === thumbnails.length) {
+                        animatePosition();
+                    }
+                } else {
+                    requestAnimationFrame(function () {
+                        placeImage(image);
+                    });
+                }
+            }
+
+            // Animate to position
+            function animatePosition() {
+                if (counter === projectRefs.current.length && counter === thumbnails.length) {
+                    console.log("Images are placed!");
+                    for (const thumb of thumbnails) {
+                        gsap.to(thumb.element, {
+                            duration: 2.5,
+                            ease: "Power4.easeOut",
+                            x: thumb.left,
+                            y: thumb.top,
+                        });
+                    }
+                } else {
+                    requestAnimationFrame(function () {
+                        animatePosition();
+                    });
+                    console.warn("Not Ready!");
+                }
+            }
+        }
+    }, [state.initial]);
 
     return (
         <>
             <SEO />
             <Header />
-            <table>
-                <tbody>
-                    {projects.map((project, i) => {
-
-                        return (
-                            <Project
-                                ref={addToRefs}
-                                projectsActive={projectsActive}
-                                setProjectsActive={setProjectsActive}
-                                key={project._id}
-                                title={project.title}
-                                location={project.location}
-                                date={project.date}
-                            >
-                                <Slider description={project._rawDescription}>
-                                    {project.slider.map((image) => {
-                                        return (
-                                            <SwiperSlide key={image._key}>
-                                                <Image
-                                                    fluid={image.asset.fluid}
-                                                    durationFadeIn={1000}
-                                                />
-                                            </SwiperSlide>
-                                        );
-                                    })}
-                                </Slider>
-                                {project.images.map((image, i) => {
-                                    return (
-                                        <Row
-                                            key={image._key}
-                                            index={i + 1}
-                                            length={project.images.length}
-                                            title={image.title}
-                                            materials={image.materials}
-                                            dimensions={image.dimensions}
-                                            date={image.date}
-                                            size={image.size}
-                                            alt={image.alt}
-                                            image={image.asset.fluid}
-                                            aspectRatio={image.asset.fluid.aspectRatio}
-                                        ></Row>
-                                    );
-                                })}
-
-                                {project.gallery.length > 0 && (
-                                    <Gallery name={project.gallerytitle}>
-                                        {project.gallery.map((image) => {
-                                            return (
-                                                <div key={image._key}>
-                                                    <Image
-                                                        title={image.title}
-                                                        alt={image.alt}
-                                                        fluid={{
-                                                            ...image.asset.fluid,
-                                                            aspectRatio: 1.5,
-                                                        }}
-                                                        durationFadeIn={1000}
-                                                    />
-                                                </div>
-                                            );
-                                        })}
-                                    </Gallery>
-                                )}
-                            </Project>
-                        );
-                    })}
-                </tbody>
-            </table>
-            <Footer projectsActive={projectsActive} />
+            <main className={style.main}>
+                {projects.map((project) => {
+                    return (
+                        <Thumbnail
+                            className={style.test}
+                            ref={addToRefs}
+                            key={project._id}
+                            thumb={project.thumbnail.asset.fluid}
+                            title={project.title}
+                        ></Thumbnail>
+                    );
+                })}
+            </main>
         </>
     );
 };
@@ -124,43 +185,11 @@ export default Home;
 
 const getData = graphql`
     {
-        allSanityProject(sort: { fields: [order], order: ASC }) {
+        allSanityProject {
             nodes {
                 _id
-                order
                 title
-                location
-                date(formatString: "YYYY")
-                slider {
-                    _key
-                    alt
-                    asset {
-                        fluid(maxWidth: 1000) {
-                            ...GatsbySanityImageFluid
-                        }
-                    }
-                }
-                _rawDescription
-                images {
-                    _key
-                    title
-                    materials
-                    dimensions
-                    date(formatString: "YYYY")
-                    size
-                    alt
-                    asset {
-                        fluid(maxWidth: 2000) {
-                            aspectRatio
-                            ...GatsbySanityImageFluid
-                        }
-                    }
-                }
-                gallerytitle
-                gallery {
-                    _key
-                    title
-                    alt
+                thumbnail {
                     asset {
                         fluid(maxWidth: 1000) {
                             ...GatsbySanityImageFluid
@@ -171,3 +200,77 @@ const getData = graphql`
         }
     }
 `;
+
+const padding = 15;
+
+// Maths
+function intersects(image, thumb) {
+    return !(thumb.left > image.right + padding ||
+        thumb.right < image.left - padding ||
+        thumb.top > image.bottom + padding ||
+        thumb.bottom < image.top - padding);
+};
+
+function random(min, max) {
+    if (max == null) {
+        max = min;
+        min = 0;
+    }
+    if (min > max) {
+        let tmp = min;
+        min = max;
+        max = tmp;
+    }
+    return min + (max - min) * Math.random();
+}
+
+function randomInt(min, max) {
+    if (max == null) {
+        max = min;
+        min = 0;
+    }
+    if (min > max) {
+        let tmp = min;
+        min = max;
+        max = tmp;
+    }
+    return Math.floor(min + (max - min + 1) * Math.random());
+}
+
+// function sizer(x, y, n) {
+//     // Compute number of rows and columns, and cell size
+//     const ratio = x / y;
+//     const ncols_float = Math.sqrt(n * ratio);
+//     const nrows_float = n / ncols_float;
+
+//     // Find best option filling the whole height
+//     let nrows1 = Math.ceil(nrows_float);
+//     let ncols1 = Math.ceil(n / nrows1);
+//     while (nrows1 * ratio < ncols1) {
+//         nrows1++;
+//         ncols1 = Math.ceil(n / nrows1);
+//     }
+//     const cell_size1 = y / nrows1;
+
+//     // Find best option filling the whole width
+//     let ncols2 = Math.ceil(ncols_float);
+//     let nrows2 = Math.ceil(n / ncols2);
+//     while (ncols2 < nrows2 * ratio) {
+//         ncols2++;
+//         nrows2 = Math.ceil(n / ncols2);
+//     }
+//     const cell_size2 = x / ncols2;
+
+//     // Find the best values
+//     let nrows, ncols, cell_size;
+//     if (cell_size1 < cell_size2) {
+//         nrows = nrows2;
+//         ncols = ncols2;
+//         cell_size = cell_size2;
+//     } else {
+//         nrows = nrows1;
+//         ncols = ncols1;
+//         cell_size = cell_size1;
+//     }
+//     return cell_size;
+// }
