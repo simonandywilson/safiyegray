@@ -1,0 +1,27 @@
+.nav {
+    width: calc(100% - (var(--padding) * 2));
+    position: fixed;
+    display: grid;
+    grid-template-columns: 0.5fr 0.7fr 0.5fr;
+    margin: var(--padding);
+    z-index: 99;
+    text-align: center;
+}
+
+.link {
+    justify-self: start;
+    text-align: left;
+}
+
+.link > div > p {
+    margin: 0;
+}
+
+.date {
+    justify-self: end;
+}
+
+.description {
+    grid-column: 2/3;
+    font-family: bradford;
+}

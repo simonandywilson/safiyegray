@@ -1,0 +1,53 @@
+.main {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slider {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    padding: var(--padding);
+    overflow-y: hidden;
+    overflow-x: scroll;
+    display: flex;
+    align-items: center;
+
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+}
+
+.item {
+    scroll-snap-align: center;
+    flex-shrink: 0;
+    margin: 100px;
+}
+
+.spacer {
+    width: 1px;
+    height: 1px;
+    margin: 1px;
+}
+
+.xs {
+    width: 10%;
+}
+
+.s {
+    width: 15%;
+}
+
+.m {
+    width: 20%;
+}
+
+.l {
+    width: 25%;
+}
+
+.xl {
+    width: 30%;
+}

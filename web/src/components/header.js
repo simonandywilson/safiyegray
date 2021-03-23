@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import style from "./header.module.css";
+import style from "../styles/header.module.css";
 import gsap from "gsap";
 
 const Header = () => {

@@ -1,10 +1,65 @@
 .thumbnail {
     position: absolute;
-    min-width: 20vw;
+    width: var(--thumbnail-width);
     height: auto;
+    margin: 0;
+    visibility: hidden;
 }
 
 .figcaption {
     padding-top: var(--padding);
     text-align: center;
+    transform: scale(1.25);
+}
+
+.topLeft,
+.topRight,
+.bottomLeft,
+.bottomRight {
+    position: absolute;
+    display: inline-block;
+    z-index: 99;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.topLeft {
+    top:0;
+    left: 0;
+    transform: translate3D(-15px, -15px, 0) scale(0);
+}
+
+.topRight {
+    top:0;
+    right: 0;
+    transform: translate3D(15px, -15px, 0) scale(0);
+}
+
+.bottomLeft {
+    bottom:0;
+    left: 0;
+    transform: translate3D(-15px, 15px, 0) scale(0);
+}
+
+.bottomRight {
+    bottom:0;
+    right: 0;
+    transform: translate3D(15px, 15px, 0) scale(0);
+}
+
+.illustration {
+    background: var(--illustration-colour);
+}
+
+.publication {
+    background: var(--publication-colour);
+}
+
+.print {
+    background: var(--print-colour);
+}
+
+.exhibition {
+    background: var(--exhibition-colour);
 }

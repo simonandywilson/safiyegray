@@ -1,0 +1,21 @@
+.cursor, .follow {
+    z-index: 1000;
+    border-radius: 50%;
+    overflow: hidden;
+    pointer-events: none;
+    transform: translate3d(0, 0, 0);
+    position: fixed;
+}
+
+.cursor {
+    width: 35px;
+    height: 35px;
+    filter: blur(10px);
+    background: white;
+}
+
+.follow {
+    width: 30px;
+    height: 30px;
+    background: yellow;
+}

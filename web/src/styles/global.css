@@ -12,14 +12,28 @@ Variables
     --five-column: 0.7fr 0.3fr 0.7fr 0.3fr 0.3fr;
 
     --padding: 15px;
+    --thumbnail-padding: 20px;
 
     --font-size: 0.9rem;
     --line-height: 100%;
+
+
+    --column-gap: 40px;
+
+    --cursor-colour: rgba(0, 0, 0, 0);
+    --illustration-colour: rgba(0, 0, 0, 0);
+    --print-colour: rgba(0, 0, 0, 0);
+    --exhibition-colour: rgba(0, 0, 0, 0);
+    --publication-colour: rgba(0, 0, 0, 0);
 }
 
 /*----------------------------------------
 Main
 ----------------------------------------*/
+
+* {
+    box-sizing: border-box;
+}
 
 html body {
     position: absolute;
@@ -28,14 +42,28 @@ html body {
     min-height: -webkit-fill-available;
     margin: 0;
     padding: 0;
-    font-family: helvetica;
+    font-family: replica;
     font-size: var(--font-size);
     line-height: var(--line-height);
+    /* cursor: none; */
+
 }
 
 /*----------------------------------------
 Typography
 ----------------------------------------*/
+
+@font-face {
+  font-family: "Replica";
+  src: url("../fonts/replica/replica_regular.woff2") format("woff2"),
+       url("../fonts/replica/replica_regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Bradford";
+  src: url("../fonts/bradford/bradford_regular.otf") format("opentype");
+}
+
 
 p {
     white-space: pre-wrap;

@@ -2,5 +2,6 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    background: rgb(255, 226, 223);
+    overflow: hidden;
+    /* background: rgb(255, 226, 223); */
 }
