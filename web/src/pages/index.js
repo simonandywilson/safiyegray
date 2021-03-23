@@ -10,7 +10,7 @@ import Nav from "../components/nav";
 import Thumbnail from "../components/thumbnail";
 import useWindowSize from "../hooks/useWindowSize";
 
-const padding;
+let padding;
 
 const Home = () => {
     console.log(padding);
