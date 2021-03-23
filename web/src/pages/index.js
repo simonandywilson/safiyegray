@@ -10,9 +10,10 @@ import Nav from "../components/nav";
 import Thumbnail from "../components/thumbnail";
 import useWindowSize from "../hooks/useWindowSize";
 
-const padding = getComputedStyle(document.documentElement).getPropertyValue("--thumbnail-padding");
+const padding;
 
 const Home = () => {
+    console.log(padding);
     // Get data
     const {
         allSanityProject: { nodes: projects },
@@ -279,34 +280,39 @@ const Home = () => {
         }
     }, []);
 
-    // Set colours
+    // Set colours & padding
     useEffect(() => {
-        const cursor = about[0].cursor.rgb;
-        const illustration = about[0].illustration.rgb;
-        const print = about[0].print.rgb;
-        const exhibition = about[0].exhibition.rgb;
-        const publication = about[0].publication.rgb;
+        if (hasWindow) {
+            const cursor = about[0].cursor.rgb;
+            const illustration = about[0].illustration.rgb;
+            const print = about[0].print.rgb;
+            const exhibition = about[0].exhibition.rgb;
+            const publication = about[0].publication.rgb;
 
-        document.documentElement.style.setProperty(
-            "--cursor-colour",
-            `rgba(${cursor.r}, ${cursor.g}, ${cursor.b}, ${cursor.a})`
-        );
-        document.documentElement.style.setProperty(
-            "--illustration-colour",
-            `rgba(${illustration.r}, ${illustration.g}, ${illustration.b}, ${illustration.a})`
-        );
-        document.documentElement.style.setProperty(
-            "--print-colour",
-            `rgba(${print.r}, ${print.g}, ${print.b}, ${print.a})`
-        );
-        document.documentElement.style.setProperty(
-            "--exhibition-colour",
-            `rgba(${exhibition.r}, ${exhibition.g}, ${exhibition.b}, ${exhibition.a})`
-        );
-        document.documentElement.style.setProperty(
-            "--publication-colour",
-            `rgba(${publication.r}, ${publication.g}, ${publication.b}, ${publication.a})`
-        );
+            document.documentElement.style.setProperty(
+                "--cursor-colour",
+                `rgba(${cursor.r}, ${cursor.g}, ${cursor.b}, ${cursor.a})`
+            );
+            document.documentElement.style.setProperty(
+                "--illustration-colour",
+                `rgba(${illustration.r}, ${illustration.g}, ${illustration.b}, ${illustration.a})`
+            );
+            document.documentElement.style.setProperty(
+                "--print-colour",
+                `rgba(${print.r}, ${print.g}, ${print.b}, ${print.a})`
+            );
+            document.documentElement.style.setProperty(
+                "--exhibition-colour",
+                `rgba(${exhibition.r}, ${exhibition.g}, ${exhibition.b}, ${exhibition.a})`
+            );
+            document.documentElement.style.setProperty(
+                "--publication-colour",
+                `rgba(${publication.r}, ${publication.g}, ${publication.b}, ${publication.a})`
+            );
+            padding = getComputedStyle(document.documentElement).getPropertyValue(
+                "--thumbnail-padding"
+            );
+        }
     }, []);
 
     return (
