@@ -10,7 +10,7 @@ import Nav from "../components/nav";
 import Thumbnail from "../components/thumbnail";
 import useWindowSize from "../hooks/useWindowSize";
 
-let padding;
+let padding = 20;
 
 const Home = () => {
     console.log(padding);
@@ -27,9 +27,13 @@ const Home = () => {
     const windowHeight = windowSize.height;
 
     // Set initial state to true and store state in sessionStorage
-    const initialState = () => window.sessionStorage.getItem("initial") || true;
+    const initialState = () => hasWindow ? window.sessionStorage.getItem("initial") || true: null;
     const [initial, setInitial] = useState(initialState);
-    useEffect(() => window.sessionStorage.setItem("initial", initial), [initial]);
+    useEffect(() => {
+        if (hasWindow) {
+            window.sessionStorage.setItem("initial", initial);
+        }
+    }, [initial]);
 
     const [complete, setComplete] = useState(false);
     const [spread, setSpread] = useState(false);
@@ -309,9 +313,9 @@ const Home = () => {
                 "--publication-colour",
                 `rgba(${publication.r}, ${publication.g}, ${publication.b}, ${publication.a})`
             );
-            padding = getComputedStyle(document.documentElement).getPropertyValue(
-                "--thumbnail-padding"
-            );
+            // padding = getComputedStyle(document.documentElement).getPropertyValue(
+            //     "--thumbnail-padding"
+            // );
         }
     }, []);
 
