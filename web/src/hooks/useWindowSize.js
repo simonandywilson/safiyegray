@@ -16,7 +16,7 @@ function useWindowSize() {
     const [windowSize, setWindowSize] = useState(getWindowSize());
 
     useEffect(
-        (getWindowSize) => {
+        () => {
             if (hasWindow) {
                 function handleResize() {
                     setWindowSize(getWindowSize());

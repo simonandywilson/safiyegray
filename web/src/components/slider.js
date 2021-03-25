@@ -36,7 +36,7 @@ const Slider = (props) => {
                 // when window width is more than 768px
                 768: {
                     spaceBetween: 150,
-                    slidesPerView: 2,
+                    slidesPerView: 2.25,
                     // slidesOffsetBefore: 200,
                     // slidesOffsetAfter: 200,
                 },
