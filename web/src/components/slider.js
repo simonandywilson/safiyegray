@@ -7,7 +7,7 @@ import "swiper/components/navigation/navigation.scss";
 import "swiper/components/pagination/pagination.scss";
 import "swiper/components/scrollbar/scrollbar.scss";
 
-SwiperCore.use([Scrollbar, Mousewheel]);
+SwiperCore.use([Mousewheel]);
 
 const Slider = (props) => {
     return (
@@ -17,7 +17,7 @@ const Slider = (props) => {
             freeMode={true}
             simulateTouch={false}
             mousewheel={{ sensitivity: 1 }}
-            scrollbar={{ draggable: true }}
+            // scrollbar={{ draggable: true }}
             // grabCursor={true}
             breakpoints={{
                 // when window width is more than 0px
@@ -29,15 +29,15 @@ const Slider = (props) => {
                 },
                 // when window width is more than 640px
                 640: {
-                    spaceBetween: 100,
+                    spaceBetween: 50,
                     slidesPerView: 2.5,
                     // slidesOffsetBefore: 100,
                     // slidesOffsetAfter: 100,
                 },
                 // when window width is more than 768px
                 768: {
-                    spaceBetween: 150,
-                    slidesPerView: 2.25,
+                    spaceBetween: 100,
+                    slidesPerView: 3,
                     // slidesOffsetBefore: 200,
                     // slidesOffsetAfter: 200,
                 },

@@ -36,6 +36,10 @@
     font-size: var(--arrow-size);
 }
 
+.item {
+    width: 75%;
+}
+
 /* .slider {
     height: 100vh;
     min-height: 100vh;

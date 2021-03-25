@@ -55,7 +55,7 @@ const Project = ({ data }) => {
                 })}
             </Slider>
             <footer className={style.footer}>
-                Scroll Down<br /><span className={style.arrow}>&#9660;</span>
+                Scroll Down
             </footer>
         </main>
     );
