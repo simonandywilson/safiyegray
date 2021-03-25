@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
-import Image from "gatsby-image";
+import Img from "gatsby-image";
 import { Link } from "gatsby";
 import style from "../styles/thumbnail.module.css";
 import gsap from "gsap";
+import { useCentreUpdateContext } from "../state/store";
 
 const Thumbnail = React.forwardRef((props, ref) => {
     const tagsRef = useRef([]);
+    const setTitle = useCentreUpdateContext();
+
     const [tags, setTags] = useState({
         topLeft: "blank",
         topRight: "blank",
@@ -35,68 +38,63 @@ const Thumbnail = React.forwardRef((props, ref) => {
     }, []);
 
     useEffect(() => {
-      if (props.complete === true) {
-        gsap.to(tagsRef.current, {
-            scale: 1,
-            stagger: {
-                each: 0.25,
-                from: "random",
-                grid: "auto",
-                ease: "power2.inOut",
-            },
-        });
-      } else {
-          gsap.to(tagsRef.current, {
-              scale: 0,
-              stagger: {
-                  each: 0.25,
-                  from: "random",
-                  grid: "auto",
-                  ease: "power2.inOut",
-              },
-          });
-      }
+        if (props.complete === true) {
+            gsap.to(tagsRef.current, {
+                scale: 1,
+                stagger: {
+                    each: 0.25,
+                    from: "random",
+                    grid: "auto",
+                    ease: "power2.inOut",
+                },
+            });
+        } else {
+            gsap.to(tagsRef.current, {
+                scale: 0,
+                stagger: {
+                    each: 0.25,
+                    from: "random",
+                    grid: "auto",
+                    ease: "power2.inOut",
+                },
+            });
+        }
     }, [props.complete]);
 
-    // Update title on mouseover
-    function setTitle() {
-        props.setProjectTitle(props.title);
-    }
-
     return (
-        <figure
-            ref={ref}
-            className={style.thumbnail}
-            id={props.id}
-            onMouseOver={setTitle}
-            onFocus={setTitle}
-        >
-            <Link to={props.slug}>
-                <Image
+        <Link to={props.slug}>
+            <figure
+                ref={ref}
+                className={style.thumbnail}
+                id={props.id}
+                onMouseOver={() => setTitle(props.title)}
+                onFocus={() => setTitle(props.title)}
+            >
+                <Img
                     fluid={{
                         ...props.thumb,
                         aspectRatio: 0.7,
                     }}
                 />
-            </Link>
-            <div
-                className={`${style.topLeft} ${style[tags.topLeft]}`}
-                ref={(el) => (tagsRef.current[0] = el)}
-            ></div>
-            <div
-                className={`${style.topRight} ${style[tags.topRight]}`}
-                ref={(el) => (tagsRef.current[1] = el)}
-            ></div>
-            <div
-                className={`${style.bottomLeft} ${style[tags.bottomLeft]}`}
-                ref={(el) => (tagsRef.current[2] = el)}
-            ></div>
-            <div
-                className={`${style.bottomRight} ${style[tags.bottomRight]}`}
-                ref={(el) => (tagsRef.current[3] = el)}
-            ></div>
-            {/* <figcaption className={style.figcaption}>{props.title}</figcaption> */}
-        </figure>
+                <div
+                    className={`${style.topLeft} ${style[tags.topLeft]}`}
+                    ref={(el) => (tagsRef.current[0] = el)}
+                ></div>
+                <div
+                    className={`${style.topRight} ${style[tags.topRight]}`}
+                    ref={(el) => (tagsRef.current[1] = el)}
+                ></div>
+                <div
+                    className={`${style.bottomLeft} ${style[tags.bottomLeft]}`}
+                    ref={(el) => (tagsRef.current[2] = el)}
+                ></div>
+                <div
+                    className={`${style.bottomRight} ${style[tags.bottomRight]}`}
+                    ref={(el) => (tagsRef.current[3] = el)}
+                ></div>
+                {/* <figcaption className={style.figcaption}>{props.title}</figcaption> */}
+            </figure>
+        </Link>
     );
 });
 

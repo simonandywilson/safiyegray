@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import Img from "gatsby-image";
+import Image from "gatsby-image";
 import style from "../styles/project.module.css";
 import { gsap } from "gsap";
 
-const Image = (props) => {
+const Slide = (props) => {
     const [aspect, setAspect] = useState(0);
 
     let element = useRef(null);
@@ -30,10 +30,12 @@ const Image = (props) => {
         });
     }, [props.aspectRatio]);
 
+    // className={ `${style[props.size]} ${style.item}` }
+
     return (
         
-        <div className={ `${style[props.size]} ${style.item}` } ref={(el) => (element = el)}>
-            <Img
+        <div className={style.wrapper} ref={(el) => (element = el)}>
+            <Image
                 key={props._key}
                 alt={props.alt}
                 fluid={{
@@ -46,4 +48,4 @@ const Image = (props) => {
     );
 };
 
-export default Image;
+export default Slide;

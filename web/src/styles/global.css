@@ -3,13 +3,7 @@ Variables
 ----------------------------------------*/
 
 :root {
-    --one-column: 1fr;
-    --two-column-alt: 1fr 0.4fr;
-    --two-column: 1fr 1fr;
-    --three-column: 1fr 1fr 0.3fr;
-    --four-column-alt: 0.7fr 0.5fr 0.5fr 0.2fr;
-    --four-column: 0.7fr 0.3fr 1fr 0.3fr;
-    --five-column: 0.7fr 0.3fr 0.7fr 0.3fr 0.3fr;
+    --header-layout: 0.5fr 1fr 0.5fr;
 
     --padding: 15px;
     --thumbnail-padding: 20px;
@@ -17,8 +11,13 @@ Variables
     --font-size: 0.9rem;
     --line-height: 100%;
 
-
     --column-gap: 40px;
+
+    --dot-size: 30px;
+    --dot-size-negative: calc((var(--dot-size) / 2) * -1);
+    --dot-size-positive: calc(var(--dot-size) / 2);
+
+    --description-width: 40%;
 
     --cursor-colour: rgba(0, 0, 0, 0);
     --illustration-colour: rgba(0, 0, 0, 0);
@@ -45,8 +44,8 @@ html body {
     font-family: replica;
     font-size: var(--font-size);
     line-height: var(--line-height);
-    /* cursor: none; */
-
+    /* background: #FFF5EF; */
+    cursor: none;
 }
 
 /*----------------------------------------
@@ -54,16 +53,15 @@ Typography
 ----------------------------------------*/
 
 @font-face {
-  font-family: "Replica";
-  src: url("../fonts/replica/replica_regular.woff2") format("woff2"),
-       url("../fonts/replica/replica_regular.woff") format("woff");
+    font-family: "Replica";
+    src: url("../fonts/replica/replica_regular.woff2") format("woff2"),
+        url("../fonts/replica/replica_regular.woff") format("woff");
 }
 
 @font-face {
-  font-family: "Bradford";
-  src: url("../fonts/bradford/bradford_regular.otf") format("opentype");
+    font-family: "Bradford";
+    src: url("../fonts/bradford/bradford_regular.otf") format("opentype");
 }
-
 
 p {
     white-space: pre-wrap;
@@ -88,9 +86,5 @@ a:active {
 }
 
 a:hover {
-    color: #ffffff;
-}
-
-.thumbnail {
-    width: 10vw;
+    color: var(--cursor-colour);
 }

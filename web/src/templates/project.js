@@ -1,65 +1,62 @@
-import React, { useRef } from "react";
+import React, { useEffect } from "react";
 import { graphql } from "gatsby";
-// import gsap from "gsap";
-import Image from "../components/image";
+import PortableText from "@sanity/block-content-to-react";
+import {
+    useLeftUpdateContext,
+    useCentreUpdateContext,
+    useRightUpdateContext,
+    useDescriptionUpdateContext,
+} from "../state/store";
 import style from "../styles/project.module.css";
 import { Link } from "gatsby";
-import Nav from "../components/nav";
-import PortableText from "@sanity/block-content-to-react";
-// import Cursor from "../components/cursor";
+import { SwiperSlide } from "swiper/react";
+import "swiper/swiper.scss";
+
+import Slide from "../components/slide";
+import Slider from "../components/slider";
 
 const Project = ({ data }) => {
     const project = data.sanityProject;
-    const sliderRef = useRef(null);
 
-    // useEffect(() => {
-    //     setTimeout(
-    //         () =>
-    //             gsap.set(sliderRef.current, {
-    //                 scrollSnapType: "x mandatory"
-    //             }),
-    //         3000
-    //     );
-    // }, []);
+    // Set header info
+    const setHome = useLeftUpdateContext();
+    const setTitle = useCentreUpdateContext();
+    const setDate = useRightUpdateContext();
+    const setDescription = useDescriptionUpdateContext();
+    useEffect(() => {
+        setHome(<Link to="/">Home</Link>);
+        setTitle(project.title);
+        setDate(project.date);
+        setDescription(
+            <PortableText
+                className={style.text}
+                blocks={project.description}
+                renderContainerOnSingleChild={true}
+            />
+        );
+    }, []);
 
     return (
-        <>
-            {/* <Cursor /> */}
-            <Nav
-                link={
-                    <Link to="/">
-                        Home
-                    </Link>
-                }
-                title={project.title}
-                date={project.date}
-                description={
-                    <PortableText
-                        className={style.text}
-                        blocks={project.description}
-                        renderContainerOnSingleChild={true}
-                    />
-                }
-            />
-            <main className={style.container}>
-                <div className={style.slider} ref={sliderRef}>
+ 
+            <main className={style.main}>
+                <Slider>
                     {project.images.map((image) => {
                         return (
-                            <Image
-                                key={image._key}
-                                title={image.title}
-                                size={image.size}
-                                rotate={image.rotate}
-                                alt={image.alt}
-                                image={image.asset.fluid}
-                                aspectRatio={image.asset.fluid.aspectRatio}
-                            />
+                            <SwiperSlide key={image._key}>
+                                <Slide
+                                    title={image.title}
+                                    size={image.size}
+                                    rotate={image.rotate}
+                                    alt={image.alt}
+                                    image={image.asset.fluid}
+                                    aspectRatio={image.asset.fluid.aspectRatio}
+                                />
+                            </SwiperSlide>
                         );
                     })}
-                    <div className={style.spacer}>&nbsp;</div>
-                </div>
+                </Slider>
             </main>
-        </>
+
     );
 };
 

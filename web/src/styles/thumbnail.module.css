@@ -5,6 +5,7 @@
     margin: 0;
     visibility: hidden;
     will-change: transform;
+    cursor: none;
 }
 
 .figcaption {
@@ -20,33 +21,33 @@
     position: absolute;
     display: inline-block;
     z-index: 99;
-    height: 30px;
-    width: 30px;
+    height: var(--dot-size);
+    width: var(--dot-size);
     border-radius: 50%;
 }
 
 .topLeft {
     top:0;
     left: 0;
-    transform: translate3D(-15px, -15px, 0) scale(0);
+    transform: translate3D(var(--dot-size-negative), var(--dot-size-negative), 0) scale(0);
 }
 
 .topRight {
     top:0;
     right: 0;
-    transform: translate3D(15px, -15px, 0) scale(0);
+    transform: translate3D(var(--dot-size-positive), var(--dot-size-negative), 0) scale(0);
 }
 
 .bottomLeft {
     bottom:0;
     left: 0;
-    transform: translate3D(-15px, 15px, 0) scale(0);
+    transform: translate3D(var(--dot-size-negative), var(--dot-size-positive), 0) scale(0);
 }
 
 .bottomRight {
     bottom:0;
     right: 0;
-    transform: translate3D(15px, 15px, 0) scale(0);
+    transform: translate3D(var(--dot-size-positive), var(--dot-size-positive), 0) scale(0);
 }
 
 .illustration {

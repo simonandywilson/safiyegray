@@ -1,4 +1,5 @@
-.cursor, .follow {
+.cursor,
+.follow {
     z-index: 1000;
     border-radius: 50%;
     overflow: hidden;
@@ -8,14 +9,19 @@
 }
 
 .cursor {
-    width: 35px;
-    height: 35px;
-    filter: blur(10px);
-    background: white;
+    width: 10px;
+    height: 10px;
+    border: 2px solid #000000;
+    background: #ffffff;
+    box-shadow:  3px 3px 12px #a8a8a8,
+             -3px -3px 12px #ffffff;
+    z-index: 99;
 }
 
 .follow {
-    width: 30px;
-    height: 30px;
+    width: var(--dot-size);
+    height: var(--dot-size);
     background: yellow;
+    transform: scale(0.75);
+    z-index: 98;
 }

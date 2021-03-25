@@ -1,22 +1,24 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
+import {
+    useLeftContext,
+    useCentreContext,
+    useRightContext,
+    useDescriptionContext,
+} from "../state/store";
 import style from "../styles/header.module.css";
-import gsap from "gsap";
 
 const Header = () => {
-    let header = useRef(null);
-
-    useEffect(() => {
-        gsap.to(header, {
-            autoAlpha: 1,
-            duration: 2
-        });
-    });
+    const left = useLeftContext()
+    const centre = useCentreContext();
+    const right = useRightContext();
+    const description = useDescriptionContext();
 
     return (
-        <header className={style.header} ref={(el) => (header = el)}>
-            <div>Title</div>
-            <div className={style.details}>Details</div>
-            <div className={style.date}>Year</div>
+        <header className={style.header}>
+            <div className={style.left}>{left}</div>
+            <div className={style.centre}>{centre}</div>
+            <div className={style.right}>{right}</div>
+            <div className={style.description}>{description}</div>
         </header>
     );
 };

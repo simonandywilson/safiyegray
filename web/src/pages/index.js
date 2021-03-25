@@ -4,16 +4,13 @@ import style from "../styles/index.module.css";
 import gsap from "gsap";
 import PortableText from "@sanity/block-content-to-react";
 
-import SEO from "../components/seo";
-import Nav from "../components/nav";
-// import Cursor from "../components/cursor";
 import Thumbnail from "../components/thumbnail";
 import useWindowSize from "../hooks/useWindowSize";
+import { useLeftUpdateContext, useRightUpdateContext, useDescriptionUpdateContext } from "../state/store";
 
 let padding = 20;
 
 const Home = () => {
-    console.log(padding);
     // Get data
     const {
         allSanityProject: { nodes: projects },
@@ -26,8 +23,24 @@ const Home = () => {
     const windowWidth = windowSize.width;
     const windowHeight = windowSize.height;
 
+    // Set header info
+    const setBio = useLeftUpdateContext();
+    const setAbout = useRightUpdateContext();
+    const setDescription = useDescriptionUpdateContext();
+    useEffect(() => {
+        setBio(
+            <PortableText
+                blocks={about[0]._rawBio}
+                renderContainerOnSingleChild={false}
+            ></PortableText>
+        );
+        setAbout(<Link to="/about">About</Link>);
+        setDescription(null)
+    }, []);
+
     // Set initial state to true and store state in sessionStorage
-    const initialState = () => hasWindow ? window.sessionStorage.getItem("initial") || true: null;
+    const initialState = () =>
+        hasWindow ? window.sessionStorage.getItem("initial") || true : null;
     const [initial, setInitial] = useState(initialState);
     useEffect(() => {
         if (hasWindow) {
@@ -320,35 +333,24 @@ const Home = () => {
     }, []);
 
     return (
-        <>
-            <SEO />
-            {/* <Cursor /> */}
-            <Nav
-                link={
-                    <PortableText blocks={about[0]._rawBio} renderContainerOnSingleChild={true} />
-                }
-                title={projectTitle}
-                date={<Link to="/about">About</Link>}
-            />
-            <main className={style.main}>
-                {projects.map((project) => {
-                    return (
-                        <Thumbnail
-                            ref={addToRefs}
-                            key={project._id}
-                            id={project._id}
-                            title={project.title}
-                            projectTitle={projectTitle}
-                            setProjectTitle={setProjectTitle}
-                            complete={complete}
-                            slug={project.slug.current}
-                            tags={project.tags}
-                            thumb={project.thumbnail.asset.fluid}
-                        ></Thumbnail>
-                    );
-                })}
-            </main>
-        </>
+        <main className={style.main}>
+            {projects.map((project) => {
+                return (
+                    <Thumbnail
+                        ref={addToRefs}
+                        key={project._id}
+                        id={project._id}
+                        title={project.title}
+                        projectTitle={projectTitle}
+                        setProjectTitle={setProjectTitle}
+                        complete={complete}
+                        slug={project.slug.current}
+                        tags={project.tags}
+                        thumb={project.thumbnail.asset.fluid}
+                    ></Thumbnail>
+                );
+            })}
+        </main>
     );
 };
 

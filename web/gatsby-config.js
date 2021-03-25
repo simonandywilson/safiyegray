@@ -12,6 +12,7 @@ module.exports = {
             },
         },
         "gatsby-plugin-styled-components",
+        "gatsby-plugin-layout",
         "gatsby-plugin-sharp",
         "gatsby-plugin-react-helmet",
         "gatsby-plugin-sitemap",

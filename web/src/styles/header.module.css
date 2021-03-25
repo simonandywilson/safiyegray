@@ -4,15 +4,27 @@
     margin: var(--padding);
     z-index: 99;
     display: grid;
-    grid-template-columns: var(--header-column);
-
-    visibility: hidden;
+    grid-template-columns: var(--header-layout);
 }
 
-.details {
-    display: var(--visibility);
+.centre {
+    justify-self: center;
+    text-align: center;
 }
 
-.date {
-    justify-self: var(--justify);
+.right {
+    justify-self: flex-end;
+}
+
+.description {
+    grid-column: 1/4;
+    justify-self: center;
+    text-align: center;
+    margin-top: var(--padding);
+    font-family: bradford;
+    width: var(--description-width);
+}
+
+.header > div > p {
+    margin: 0;
 }
