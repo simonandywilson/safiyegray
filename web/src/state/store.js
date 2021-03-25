@@ -76,7 +76,6 @@ export const useDescriptionUpdateContext = () => {
 };
 
 const ContextProvider = ({ children }) => {
-    const [context, setContext] = useState(null);
     const [left, setLeft] = useState(null);
     const [centre, setCentre] = useState(null);
     const [right, setRight] = useState(null);

@@ -22,11 +22,7 @@ const Thumbnail = React.forwardRef((props, ref) => {
         rawTags.length = 4;
         rawTags = Array.from(rawTags, (item) => item || "blank");
 
-        const shuffle = (arr) =>
-            [...arr].reduceRight(
-                (res, _, __, s) => (res.push(s.splice(0 | (Math.random() * s.length), 1)[0]), res),
-                []
-            );
+        const shuffle = (array) => array.sort(() => Math.random() - 0.5);
         let processedTags = shuffle(rawTags);
 
         setTags({
@@ -35,7 +31,7 @@ const Thumbnail = React.forwardRef((props, ref) => {
             bottomLeft: processedTags[2],
             bottomRight: processedTags[3],
         });
-    }, []);
+    }, [props.tags]);
 
     useEffect(() => {
         if (props.complete === true) {
@@ -69,6 +65,7 @@ const Thumbnail = React.forwardRef((props, ref) => {
                 id={props.id}
                 onMouseOver={() => setTitle(props.title)}
                 onFocus={() => setTitle(props.title)}
+                role="presentation"
             >
                 <Img
                     fluid={{

@@ -5,7 +5,6 @@ import { gsap } from "gsap";
 
 const Slide = (props) => {
     const [aspect, setAspect] = useState(0);
-
     let element = useRef(null);
 
     useEffect(() => {
@@ -28,7 +27,7 @@ const Slide = (props) => {
             y: "random(-25, 25)",
             duration: 3,
         });
-    }, [props.aspectRatio]);
+    }, [props.aspectRatio, props.rotate]);
 
     // className={ `${style[props.size]} ${style.item}` }
 

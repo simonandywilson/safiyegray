@@ -34,7 +34,7 @@ const Project = ({ data }) => {
                 renderContainerOnSingleChild={true}
             />
         );
-    }, []);
+    }, [setHome, setTitle, setDate, setDescription, project.title, project.date, project.description]);
 
     return (
  

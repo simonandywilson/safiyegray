@@ -15,35 +15,22 @@ function useWindowSize() {
 
     const [windowSize, setWindowSize] = useState(getWindowSize());
 
-    useEffect(() => {
-        if (hasWindow) {
-            function handleResize() {
-                setWindowSize(getWindowSize());
+    useEffect(
+        (getWindowSize) => {
+            if (hasWindow) {
+                function handleResize() {
+                    setWindowSize(getWindowSize());
+                }
+
+                window.addEventListener("resize", handleResize);
+
+                return () => window.removeEventListener("resize", handleResize);
             }
-
-            // window.addEventListener(
-            //     "resize",
-            //     debounce(() => {
-            //         handleResize();
-            //     }, 250)
-            // );
-
-            window.addEventListener("resize", handleResize);
-
-            return () => window.removeEventListener("resize", handleResize);
-        }
-    }, [hasWindow]);
+        },
+        [hasWindow]
+    );
 
     return windowSize;
-}
-
-function debounce(callback, wait) {
-    let timeout;
-    return (...args) => {
-        const context = this;
-        clearTimeout(timeout);
-        timeout = setTimeout(() => callback.apply(context, args), wait);
-    };
 }
 
 export default useWindowSize;

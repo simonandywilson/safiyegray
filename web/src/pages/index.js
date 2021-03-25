@@ -36,7 +36,7 @@ const Home = () => {
         );
         setAbout(<Link to="/about">About</Link>);
         setDescription(null)
-    }, []);
+    }, [about, setAbout, setBio, setDescription]);
 
     // Set initial state to true and store state in sessionStorage
     const initialState = () =>
@@ -484,6 +484,7 @@ function sizer(x, y, n) {
     const cell_size2 = x / ncols2;
 
     // Find the best values
+    // eslint-disable-next-line no-unused-vars
     let nrows, ncols, cell_size;
     if (cell_size1 < cell_size2) {
         nrows = nrows2;

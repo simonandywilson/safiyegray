@@ -1,7 +1,6 @@
 import React from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper } from 'swiper/react';
 import SwiperCore, { Scrollbar, Mousewheel } from "swiper";
-import style from "../styles/project.module.css";
 
 import 'swiper/swiper.scss';
 import "swiper/components/navigation/navigation.scss";
