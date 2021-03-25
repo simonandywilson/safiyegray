@@ -37,26 +37,27 @@ const Project = ({ data }) => {
     }, [setHome, setTitle, setDate, setDescription, project.title, project.date, project.description]);
 
     return (
- 
-            <main className={style.main}>
-                <Slider>
-                    {project.images.map((image) => {
-                        return (
-                            <SwiperSlide key={image._key}>
-                                <Slide
-                                    title={image.title}
-                                    size={image.size}
-                                    rotate={image.rotate}
-                                    alt={image.alt}
-                                    image={image.asset.fluid}
-                                    aspectRatio={image.asset.fluid.aspectRatio}
-                                />
-                            </SwiperSlide>
-                        );
-                    })}
-                </Slider>
-            </main>
-
+        <main className={style.main}>
+            <Slider>
+                {project.images.map((image) => {
+                    return (
+                        <SwiperSlide key={image._key}>
+                            <Slide
+                                title={image.title}
+                                size={image.size}
+                                rotate={image.rotate}
+                                alt={image.alt}
+                                image={image.asset.fluid}
+                                aspectRatio={image.asset.fluid.aspectRatio}Î
+                            />
+                        </SwiperSlide>
+                    );
+                })}
+            </Slider>
+            <footer className={style.footer}>
+                Scroll Down<br /><span className={style.arrow}>&#9660;</span>
+            </footer>
+        </main>
     );
 };
 

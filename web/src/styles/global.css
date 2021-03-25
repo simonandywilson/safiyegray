@@ -9,6 +9,8 @@ Variables
     --thumbnail-padding: 20px;
 
     --font-size: 1rem;
+    --small-font-size: 0.8rem;
+    --arrow-size: 0.4rem;
     --line-height: 100%;
 
     --column-gap: 40px;
@@ -77,6 +79,7 @@ a {
     width: max-content;
     color: #000000;
     text-decoration: none;
+    cursor: none;
     /* transition: 0.5s; */
 }
 

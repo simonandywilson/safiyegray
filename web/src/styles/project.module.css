@@ -21,7 +21,22 @@
     justify-content: center;
 }
 
-.slider {
+.footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: var(--padding);
+    text-align: center;
+    font-family: bradford;
+    font-size: var(--small-font-size);
+    line-height: 100%;
+}
+
+.arrow {
+    font-size: var(--arrow-size);
+}
+
+/* .slider {
     height: 100vh;
     min-height: 100vh;
     min-height: -webkit-fill-available;
@@ -48,7 +63,7 @@
     width: 1px;
     height: 1px;
     margin: 1px;
-}
+} */
 
 /* .xs {
     width: 10%;
