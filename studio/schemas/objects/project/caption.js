@@ -29,11 +29,9 @@ export default {
             description: "Select whether the image spans over one or two columns.",
             options: {
                 list: [
-                    { title: "Extra Small", value: "xs" },
                     { title: "Small", value: "s" },
                     { title: "Medium", value: "m" },
                     { title: "Large", value: "l" },
-                    { title: "Extra Large", value: "xl" },
                 ],
                 isHighlighted: true,
             },
@@ -65,9 +63,6 @@ export default {
             let size;
 
             switch (subtitle) {
-                case "xs":
-                    size = "Extra Small";
-                    break;
                 case "s":
                     size = "Small";
                     break;
@@ -76,9 +71,6 @@ export default {
                     break;
                 case "l":
                     size = "Large";
-                    break;
-                case "xl":
-                    size = "Extra Large";
                     break;
             }
 

@@ -7,7 +7,7 @@ export default {
     fields: [
         {
             title: "Title",
-            name: "name",
+            name: "title",
             type: "string",
         },
         {
@@ -16,4 +16,10 @@ export default {
             type: "string",
         },
     ],
+    preview: {
+        select: {
+            title: "title",
+            subtitle: "date",
+        },
+    },
 };

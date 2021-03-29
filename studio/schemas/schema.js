@@ -14,6 +14,7 @@ import category from "./objects/about/category";
 import contact from "./objects/about/contact";
 import social from "./objects/about/social";
 
+import settings from "./documents/settings";
 import seo from "./documents/seo";
 
 export default createSchema({
@@ -31,6 +32,8 @@ export default createSchema({
         category,
         contact,
         social,
+
+        settings,
 
         seo,
     ]),

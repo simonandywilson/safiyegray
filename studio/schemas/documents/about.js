@@ -20,32 +20,12 @@ export default {
             title: "Bio",
             name: "bio",
             type: "description",
-            description: "Displayed on homepage.",
-        },
-        { title: "Cursor Colour", name: "cursor", type: "color", fieldset: "colours" },
-        {
-            title: "Illustration Tag Colour",
-            name: "illustrationColour",
-            type: "color",
-            fieldset: "colours",
         },
         {
-            title: "Print Tag Colour",
-            name: "printColour",
-            type: "color",
-            fieldset: "colours",
-        },
-        {
-            title: "Exhibition Tag Colour",
-            name: "exhibitionColour",
-            type: "color",
-            fieldset: "colours",
-        },
-        {
-            title: "Publication Tag Colour",
-            name: "publicationColour",
-            type: "color",
-            fieldset: "colours",
+            // Image
+            title: "Portrait",
+            name: "portrait",
+            type: "image",
         },
         {
             // CV
