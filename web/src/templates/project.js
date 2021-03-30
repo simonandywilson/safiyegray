@@ -8,12 +8,13 @@ import {
     useDescriptionUpdateContext,
 } from "../state/store";
 import style from "../styles/project.module.css";
-import { Link } from "gatsby";
 import { SwiperSlide } from "swiper/react";
 import "swiper/swiper.scss";
 
+import SEO from "../components/seo"
 import Slide from "../components/slide";
 import Slider from "../components/slider";
+import Underline from "../components/underline"
 
 const Project = ({ data }) => {
     const project = data.sanityProject;
@@ -24,19 +25,21 @@ const Project = ({ data }) => {
     const setDate = useRightUpdateContext();
     const setDescription = useDescriptionUpdateContext();
     useEffect(() => {
-        setHome(<Link to="/">Home</Link>);
+        setHome(<Underline to={"/"} link={"Home"} gatsbyLink={true} />);
         setTitle(project.title);
         setDate(project.date);
         setDescription(
-            <PortableText
-                className={style.text}
-                blocks={project.description}
-                renderContainerOnSingleChild={true}
-            />
+            null
         );
     }, [setHome, setTitle, setDate, setDescription, project.title, project.date, project.description]);
 
     return (
+        <>
+        <SEO
+                metatitle={project.title}
+                metadescription={project.meta}
+                metabanner={project.thumbnail.asset.fixed}
+            />
         <main className={style.main}>
             <Slider>
                 {project.images.map((image) => {
@@ -48,16 +51,21 @@ const Project = ({ data }) => {
                                 rotate={image.rotate}
                                 alt={image.alt}
                                 image={image.asset.fluid}
-                                aspectRatio={image.asset.fluid.aspectRatio}Î
+                                aspectRatio={image.asset.fluid.aspectRatio}
                             />
                         </SwiperSlide>
                     );
                 })}
             </Slider>
             <footer className={style.footer}>
-                Scroll Down
+                <PortableText
+                    className={style.text}
+                    blocks={project.description}
+                    renderContainerOnSingleChild={true}
+                />
             </footer>
         </main>
+        </>
     );
 };
 
@@ -68,6 +76,14 @@ export const query = graphql`
             date(formatString: "YYYY")
             tags
             description: _rawDescription
+            thumbnail {
+                asset {
+                    fixed(height: 630, width: 1200) {
+                        ...GatsbySanityImageFixed
+                    }
+                }
+            }
+            meta
             images {
                 _key
                 title

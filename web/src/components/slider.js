@@ -16,6 +16,7 @@ const Slider = (props) => {
             centerInsufficientSlides={true}
             freeMode={true}
             simulateTouch={false}
+            loop={true}
             mousewheel={{ sensitivity: 1 }}
             // scrollbar={{ draggable: true }}
             // grabCursor={true}

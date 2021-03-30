@@ -9,17 +9,17 @@
 }
 
 .cursor {
-    width: 10px;
-    height: 10px;
-    background: #000000;
-    box-shadow:  0px 4px 25px 0px rgba(191, 191, 191, 0.50);
+    width: 20px;
+    height: 20px;
+    background: yellow;
+    /* box-shadow:  0px 4px 25px 0px rgba(191, 191, 191, 0.50); */
     z-index: 99;
 }
 
-.follow {
+/* .follow {
     width: var(--dot-size);
     height: var(--dot-size);
     background: yellow;
     transform: scale(0.75);
     z-index: 98;
-}
+} */

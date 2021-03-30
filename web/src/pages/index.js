@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useStaticQuery, graphql, Link } from "gatsby";
+import { useStaticQuery, graphql } from "gatsby";
 import style from "../styles/index.module.css";
 import gsap from "gsap";
-import PortableText from "@sanity/block-content-to-react";
 
 import Thumbnail from "../components/thumbnail";
+import SEO from "../components/seo";
+import Underline from "../components/underline"
 import useWindowSize from "../hooks/useWindowSize";
-import { useLeftUpdateContext, useRightUpdateContext, useDescriptionUpdateContext } from "../state/store";
+import {
+    useLeftUpdateContext,
+    useRightUpdateContext,
+    useDescriptionUpdateContext,
+} from "../state/store";
 
 let padding = 20;
 
@@ -14,7 +19,8 @@ const Home = () => {
     // Get data
     const {
         allSanityProject: { nodes: projects },
-        allSanityAbout: { nodes: about },
+        sanitySettings: settings,
+        sanitySeo: seo,
     } = useStaticQuery(getData);
 
     // Get window size
@@ -24,19 +30,14 @@ const Home = () => {
     const windowHeight = windowSize.height;
 
     // Set header info
-    const setBio = useLeftUpdateContext();
+    const setName = useLeftUpdateContext();
     const setAbout = useRightUpdateContext();
     const setDescription = useDescriptionUpdateContext();
     useEffect(() => {
-        setBio(
-            <PortableText
-                blocks={about[0]._rawBio}
-                renderContainerOnSingleChild={false}
-            ></PortableText>
-        );
-        setAbout(<Link to="/about">About</Link>);
-        setDescription(null)
-    }, [about, setAbout, setBio, setDescription]);
+        setName("Safiye Gray");
+        setAbout(<Underline to={"/about"} link={"About"} gatsbyLink={true}/>);
+        setDescription(null);
+    }, [setAbout, setName, setDescription]);
 
     // Set initial state to true and store state in sessionStorage
     const initialState = () =>
@@ -50,18 +51,24 @@ const Home = () => {
 
     const [complete, setComplete] = useState(false);
     const [spread, setSpread] = useState(false);
-    const [projectTitle, setProjectTitle] = useState(null);
 
     // Set size of thumbnails
     useEffect(() => {
         if (hasWindow) {
             function resizer() {
-                const thumbWidth = sizer(
+                const [height, width] = sizer(
                     window.innerWidth,
                     window.innerHeight,
                     projectRefs.current.length
                 );
-                document.documentElement.style.setProperty("--thumbnail-width", `${thumbWidth}px`);
+                document.documentElement.style.setProperty(
+                    "--thumbnail-height",
+                    `${Math.round(height)}px`
+                );
+                document.documentElement.style.setProperty(
+                    "--thumbnail-width",
+                    `${Math.round(width)}px`
+                );
             }
             // Set size on init
             resizer();
@@ -199,7 +206,7 @@ const Home = () => {
 
                 // Loop through all thumbnails
                 for (const thumb of thumbnails) {
-                    // Continue if thum is this thumbnail or isn't placed
+                    // Continue if thumb is this thumbnail or isn't placed
                     if (thumb === image || !thumb.placed) {
                         continue;
                     }
@@ -300,15 +307,20 @@ const Home = () => {
     // Set colours & padding
     useEffect(() => {
         if (hasWindow) {
-            const cursor = about[0].cursor.rgb;
-            const illustration = about[0].illustration.rgb;
-            const print = about[0].print.rgb;
-            const exhibition = about[0].exhibition.rgb;
-            const publication = about[0].publication.rgb;
+            const cursor = settings.cursor.rgb;
+            const highlight = settings.highlight.rgb;
+            const illustration = settings.illustration.rgb;
+            const print = settings.print.rgb;
+            const exhibition = settings.exhibition.rgb;
+            const publication = settings.publication.rgb;
 
             document.documentElement.style.setProperty(
                 "--cursor-colour",
                 `rgba(${cursor.r}, ${cursor.g}, ${cursor.b}, ${cursor.a})`
+            );
+            document.documentElement.style.setProperty(
+                "--highlight-colour",
+                `rgba(${highlight.r}, ${highlight.g}, ${highlight.b}, ${highlight.a})`
             );
             document.documentElement.style.setProperty(
                 "--illustration-colour",
@@ -326,31 +338,33 @@ const Home = () => {
                 "--publication-colour",
                 `rgba(${publication.r}, ${publication.g}, ${publication.b}, ${publication.a})`
             );
-            // padding = getComputedStyle(document.documentElement).getPropertyValue(
-            //     "--thumbnail-padding"
-            // );
         }
     }, []);
 
     return (
-        <main className={style.main}>
-            {projects.map((project) => {
-                return (
-                    <Thumbnail
-                        ref={addToRefs}
-                        key={project._id}
-                        id={project._id}
-                        title={project.title}
-                        projectTitle={projectTitle}
-                        setProjectTitle={setProjectTitle}
-                        complete={complete}
-                        slug={project.slug.current}
-                        tags={project.tags}
-                        thumb={project.thumbnail.asset.fluid}
-                    ></Thumbnail>
-                );
-            })}
-        </main>
+        <>
+            <SEO
+                metatitle={seo.title}
+                metadescription={seo.description}
+                metabanner={seo.banner.asset.fixed}
+            />
+            <main className={style.main}>
+                {projects.map((project) => {
+                    return (
+                        <Thumbnail
+                            ref={addToRefs}
+                            key={project._id}
+                            id={project._id}
+                            title={project.title}
+                            complete={complete}
+                            slug={project.slug.current}
+                            tags={project.tags}
+                            thumb={project.thumbnail.asset.fluid}
+                        ></Thumbnail>
+                    );
+                })}
+            </main>
+        </>
     );
 };
 
@@ -358,51 +372,6 @@ export default Home;
 
 const getData = graphql`
     {
-        allSanityAbout {
-            nodes {
-                _rawBio
-                cursor {
-                    rgb {
-                        r
-                        g
-                        b
-                        a
-                    }
-                }
-                exhibition: exhibitionColour {
-                    rgb {
-                        r
-                        g
-                        b
-                        a
-                    }
-                }
-                illustration: illustrationColour {
-                    rgb {
-                        r
-                        g
-                        b
-                        a
-                    }
-                }
-                print: printColour {
-                    rgb {
-                        r
-                        g
-                        b
-                        a
-                    }
-                }
-                publication: publicationColour {
-                    rgb {
-                        r
-                        g
-                        b
-                        a
-                    }
-                }
-            }
-        }
         allSanityProject {
             nodes {
                 _id
@@ -416,6 +385,67 @@ const getData = graphql`
                         fluid(maxWidth: 1000) {
                             ...GatsbySanityImageFluid
                         }
+                    }
+                }
+            }
+        }
+        sanitySettings {
+            cursor {
+                rgb {
+                    r
+                    g
+                    b
+                    a
+                }
+            }
+            highlight {
+                rgb {
+                    r
+                    g
+                    b
+                    a
+                }
+            }
+            illustration {
+                rgb {
+                    r
+                    g
+                    b
+                    a
+                }
+            }
+            publication {
+                rgb {
+                    r
+                    g
+                    b
+                    a
+                }
+            }
+            print {
+                rgb {
+                    r
+                    g
+                    b
+                    a
+                }
+            }
+            exhibition {
+                rgb {
+                    r
+                    g
+                    b
+                    a
+                }
+            }
+        }
+        sanitySeo {
+            title
+            description
+            banner {
+                asset {
+                    fixed(height: 630, width: 1200) {
+                        ...GatsbySanityImageFixed
                     }
                 }
             }
@@ -495,5 +525,8 @@ function sizer(x, y, n) {
         ncols = ncols1;
         cell_size = cell_size1;
     }
-    return cell_size * 0.7;
+
+    let height = cell_size;
+    let width = cell_size * 0.7;
+    return [height, width];
 }

@@ -1,0 +1,55 @@
+.grid {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: calc(var(--padding) * 3);
+    padding: var(--padding);
+}
+
+.portrait {
+    width: 30%;
+    margin-bottom: calc(var(--padding) * 2);
+}
+
+.bio {
+    width: 50%;
+    text-align: center;
+    margin-bottom: calc(var(--padding) * 1);
+}
+
+.bio > p {
+    margin: 0;
+}
+
+.contact {
+    display: flex;
+    margin-bottom: calc(var(--padding) * 4);
+}
+
+.contact > a {
+    margin-left: var(--padding);
+    margin-right: var(--padding);
+}
+
+.title {
+    text-transform: uppercase;
+    margin-bottom: var(--padding);
+}
+
+.about {
+    display: flex;
+    justify-content: center;
+}
+
+.section {
+    width: 30%;
+    margin-left: var(--padding);
+    margin-right: var(--padding);
+}
+
+.item {
+    margin-bottom: var(--padding);
+    font-size: var(--small-font-size);
+}

@@ -27,17 +27,18 @@
     bottom: 0;
     margin-bottom: var(--padding);
     text-align: center;
-    font-family: bradford;
+    display: flex;
+    justify-content: center;
     font-size: var(--small-font-size);
     line-height: 100%;
 }
 
-.arrow {
-    font-size: var(--arrow-size);
-}
-
 .item {
     width: 75%;
+}
+
+.text {
+    width: 50%;
 }
 
 /* .slider {

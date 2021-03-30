@@ -1,31 +1,40 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import { useLocation } from "@reach/router";
 import { useStaticQuery, graphql } from "gatsby";
+import { _sortPropTweensByPriority } from "gsap/gsap-core";
 
-const SEO = () => {
-    const { sanitySeo: seo, site:{siteMetadata:{siteUrl}} } = useStaticQuery(getData);
+const SEO = (props) => {
+    const {
+        site: {
+            siteMetadata: { siteUrl },
+        },
+    } = useStaticQuery(getData);
+
+    const { pathname } = useLocation();
+    let url = `${siteUrl}${pathname}`;
 
     return (
         <Helmet>
             <html lang="en" />
             {/* Primary Meta Tags */}
-            <title>{seo.title}</title>
-            <meta name="title" content={seo.title} />
-            <meta name="description" content={seo.description} />
+            <title>{props.metatitle}</title>
+            <meta name="title" content={props.metatitle} />
+            <meta name="description" content={props.metadescription} />
 
             {/* Open Graph / Facebook */}
             <meta property="og:type" content="website" />
-            <meta property="og:url" content={siteUrl} />
-            <meta property="og:title" content={seo.title} />
-            <meta property="og:description" content={seo.description} />
-            <meta property="og:image" content={seo.image} />
+            <meta property="og:url" content={url} />
+            <meta property="og:title" content={props.metatitle} />
+            <meta property="og:description" content={props.metadescription} />
+            <meta property="og:image" content={props.metaimage} />
 
             {/* Twitter */}
             <meta property="twitter:card" content="summary_large_image" />
-            <meta property="twitter:url" content={siteUrl} />
-            <meta property="twitter:title" content={seo.title} />
-            <meta property="twitter:description" content={seo.description} />
-            <meta property="twitter:image" content={seo.image}></meta>
+            <meta property="twitter:url" content={url} />
+            <meta property="twitter:title" content={props.metatitle} />
+            <meta property="twitter:description" content={props.metadescription} />
+            <meta property="twitter:image" content={props.metaimage}></meta>
         </Helmet>
     );
 };
@@ -34,17 +43,6 @@ export default SEO;
 
 const getData = graphql`
     {
-        sanitySeo {
-            title
-            description
-            banner {
-                asset {
-                    fixed(height: 630, width: 1200) {
-                        ...GatsbySanityImageFixed
-                    }
-                }
-            }
-        }
         site {
             siteMetadata {
                 siteUrl

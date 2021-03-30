@@ -21,7 +21,6 @@ const Slide = (props) => {
                 duration: 1,
             });
         }
-
         gsap.to(element, {
             x: "random(-25, 25)",
             y: "random(-25, 25)",
@@ -32,10 +31,9 @@ const Slide = (props) => {
     // className={ `${style[props.size]} ${style.item}` }
 
     return (
-        
         <div className={style.wrapper} ref={(el) => (element = el)}>
             <Image
-            className={style.item}
+                className={style.item}
                 key={props._key}
                 alt={props.alt}
                 fluid={{

@@ -4,38 +4,56 @@ import { Link } from "gatsby";
 import style from "../styles/thumbnail.module.css";
 import gsap from "gsap";
 import { useCentreUpdateContext } from "../state/store";
+import Tag from "../components/tag"
 
 const Thumbnail = React.forwardRef((props, ref) => {
-    const tagsRef = useRef([]);
+    let thumbnailContainer = useRef(null);
+    let tagsContainer = useRef(null);
+
+    const innerRef = useRef(null);
+    const combinedRef = useCombinedRefs(ref, innerRef);
+
     const setTitle = useCentreUpdateContext();
 
-    const [tags, setTags] = useState({
-        topLeft: "blank",
-        topRight: "blank",
-        bottomLeft: "blank",
-        bottomRight: "blank",
+    // Add refs to each tag
+    const tagRefs = useRef([]);
+    tagRefs.current = [];
+    const addToRefs = (el) => {
+        if (el && !tagRefs.current.includes(el)) {
+            tagRefs.current.push(el);
+        }
+    };
+
+    const [hover, setHover] = useState(false);
+    const [offset, setOffset] = useState({
+        left: 0,
+        top: 0,
     });
+    const height = parseInt(
+        getComputedStyle(document.documentElement).getPropertyValue("--thumbnail-height"),
+        10
+    );
+    const width = parseInt(
+        getComputedStyle(document.documentElement).getPropertyValue("--thumbnail-width"),
+        10
+    );
+    const properties = JSON.parse(window.sessionStorage.getItem(props.id));
 
+    // Animate dots in and out
     useEffect(() => {
-        // Add 'blank' to fill in missing tags (up to 4) & then randomise
-        let rawTags = props.tags;
-        rawTags.length = 4;
-        rawTags = Array.from(rawTags, (item) => item || "blank");
-
-        const shuffle = (array) => array.sort(() => Math.random() - 0.5);
-        let processedTags = shuffle(rawTags);
-
-        setTags({
-            topLeft: processedTags[0],
-            topRight: processedTags[1],
-            bottomLeft: processedTags[2],
-            bottomRight: processedTags[3],
-        });
-    }, [props.tags]);
-
-    useEffect(() => {
-        if (props.complete === true) {
-            gsap.to(tagsRef.current, {
+        if (props.complete) {
+            gsap.set(tagRefs.current, {
+                scale: 0,
+                x: (index, target) => {
+                    let left = randomise(target.offsetWidth, width) - target.offsetWidth;
+                    return left;
+                },
+                y: (index, target) => {
+                    let top = randomise(target.offsetWidth, height) - target.offsetHeight;
+                    return top;
+                },
+            });
+            gsap.to(tagRefs.current, {
                 scale: 1,
                 stagger: {
                     each: 0.25,
@@ -45,7 +63,7 @@ const Thumbnail = React.forwardRef((props, ref) => {
                 },
             });
         } else {
-            gsap.to(tagsRef.current, {
+            gsap.to(tagRefs.current, {
                 scale: 0,
                 stagger: {
                     each: 0.25,
@@ -57,42 +75,114 @@ const Thumbnail = React.forwardRef((props, ref) => {
         }
     }, [props.complete]);
 
+    // Mouseover thumbnails
+    useEffect(() => {
+        if (props.complete) {
+            gsap.to(thumbnailContainer, {
+                scale: 1.05,
+                x: (index, target) => {
+                    let movement = offset.left / 15;
+                    return movement;
+                },
+                y: (index, target) => {
+                    let movement = offset.top / 15;
+                    return movement;
+                },
+            });
+            gsap.to(tagsContainer, {
+                scale: 1.05,
+                x: (index, target) => {
+                    let movement = offset.left / 30;
+                    return movement * -1;
+                },
+                y: (index, target) => {
+                    let movement = offset.top / 30;
+                    return movement * -1;
+                },
+            });
+        }
+    }, [offset]);
+
+    // Recentre thumbnails
+    useEffect(() => {
+        if (props.complete) {
+            if (!hover) {
+                gsap.to(thumbnailContainer, {
+                    scale: 1,
+                    x: 0,
+                    y: 0,
+                });
+                gsap.to(tagsContainer, {
+                    scale: 1,
+                    x: 0,
+                    y: 0,
+                });
+            }
+        }
+    }, [hover]);
+
+    function mouseMove(e) {
+        if (props.complete) {
+            setOffset({
+                left: e.clientX - (properties.left + Math.floor(width / 2)),
+                top: e.clientY - (properties.top + Math.floor(height / 2)),
+            });
+        }
+    }
+
     return (
-        <Link to={props.slug}>
-            <figure
-                ref={ref}
-                className={style.thumbnail}
-                id={props.id}
-                onMouseOver={() => setTitle(props.title)}
-                onFocus={() => setTitle(props.title)}
-                role="presentation"
-            >
-                <Img
-                    fluid={{
-                        ...props.thumb,
-                        aspectRatio: 0.7,
-                    }}
-                />
-                <div
-                    className={`${style.topLeft} ${style[tags.topLeft]}`}
-                    ref={(el) => (tagsRef.current[0] = el)}
-                ></div>
-                <div
-                    className={`${style.topRight} ${style[tags.topRight]}`}
-                    ref={(el) => (tagsRef.current[1] = el)}
-                ></div>
-                <div
-                    className={`${style.bottomLeft} ${style[tags.bottomLeft]}`}
-                    ref={(el) => (tagsRef.current[2] = el)}
-                ></div>
-                <div
-                    className={`${style.bottomRight} ${style[tags.bottomRight]}`}
-                    ref={(el) => (tagsRef.current[3] = el)}
-                ></div>
-                {/* <figcaption className={style.figcaption}>{props.title}</figcaption> */}
-            </figure>
-        </Link>
+        <div>
+            <Link to={props.slug}>
+                <figure
+                    ref={combinedRef}
+                    className={style.thumbnail}
+                    id={props.id}
+                    onMouseOver={() => setTitle(props.title)}
+                    onFocus={() => setTitle(props.title)}
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                    onMouseMove={(e) => mouseMove(e)}
+                    role="presentation"
+                >
+                    <div ref={(el) => (thumbnailContainer = el)}>
+                        <Img
+                            fluid={{
+                                ...props.thumb,
+                                aspectRatio: 0.7,
+                            }}
+                        />
+                    </div>
+                    <div className={style.tagsContainer} ref={(el) => (tagsContainer = el)}>
+                        {props.tags.map((tag, index) => {
+                            return <Tag key={index} ref={addToRefs} tag={tag} complete={props.complete}/>
+                        })}
+                    </div>
+                </figure>
+            </Link>
+        </div>
     );
 });
 
 export default Thumbnail;
+
+function useCombinedRefs(...refs) {
+    const targetRef = React.useRef();
+
+    React.useEffect(() => {
+        refs.forEach((ref) => {
+            if (!ref) return;
+
+            if (typeof ref === "function") {
+                ref(targetRef.current);
+            } else {
+                ref.current = targetRef.current;
+            }
+        });
+    }, [refs]);
+
+    return targetRef;
+}
+
+function randomise(min, max) {
+    return Math.random() * (max - min) + min;
+}

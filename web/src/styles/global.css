@@ -6,22 +6,21 @@ Variables
     --header-layout: 0.5fr 1fr 0.5fr;
 
     --padding: 15px;
-    --thumbnail-padding: 20px;
 
-    --font-size: 1rem;
-    --small-font-size: 0.8rem;
+    --font-family: Academica;
+    --font-size: 1.2rem;
+    --small-font-size: 0.9rem;
     --arrow-size: 0.4rem;
     --line-height: 100%;
 
     --column-gap: 40px;
 
-    --dot-size: 30px;
-    --dot-size-negative: calc((var(--dot-size) / 2) * -1);
-    --dot-size-positive: calc(var(--dot-size) / 2);
+    --dot-size: 25px;
 
     --description-width: 40%;
 
     --cursor-colour: rgba(0, 0, 0, 0);
+    --highlight-colour: rgba(0, 0, 0, 0);
     --illustration-colour: rgba(0, 0, 0, 0);
     --print-colour: rgba(0, 0, 0, 0);
     --exhibition-colour: rgba(0, 0, 0, 0);
@@ -43,10 +42,9 @@ html body {
     min-height: -webkit-fill-available;
     margin: 0;
     padding: 0;
-    font-family: replica;
+    font-family: var(--font-family);
     font-size: var(--font-size);
     line-height: var(--line-height);
-    /* background: #FFF5EF; */
     cursor: none;
 }
 
@@ -54,40 +52,26 @@ html body {
 Typography
 ----------------------------------------*/
 
-@font-face {
-    font-family: "Replica";
-    src: url("../fonts/replica/replica_regular.woff2") format("woff2"),
-        url("../fonts/replica/replica_regular.woff") format("woff");
-}
-
+/* £150 */
 @font-face {
     font-family: "Bradford";
     src: url("../fonts/bradford/bradford_regular.otf") format("opentype");
 }
 
-p {
-    white-space: pre-wrap;
-}
-
-.times {
-    font-family: times;
-    font-size: var(--font-size-times);
-    line-height: var(--line-height);
+/* £30 */
+@font-face {
+    font-family: "Academica";
+    src: url("../fonts/academica/AcademicaLight.otf") format("opentype");
 }
 
 a {
-    width: max-content;
     color: #000000;
     text-decoration: none;
+    text-underline-offset: 1px;
     cursor: none;
-    /* transition: 0.5s; */
 }
 
 a:visited,
 a:active {
     color: #000000;
-}
-
-a:hover {
-    /* color: var(--cursor-colour); */
 }

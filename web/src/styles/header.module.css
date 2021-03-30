@@ -15,17 +15,3 @@
 .right {
     justify-self: flex-end;
 }
-
-.description {
-    grid-column: 1/4;
-    justify-self: center;
-    text-align: center;
-    margin-top: var(--padding);
-    font-family: bradford;
-    line-height: 110%;
-    width: var(--description-width);
-}
-
-.header > div > p {
-    margin: 0;
-}
