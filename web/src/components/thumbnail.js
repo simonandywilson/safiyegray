@@ -7,9 +7,9 @@ import { useCentreUpdateContext } from "../state/store";
 import Tag from "../components/tag"
 
 const Thumbnail = React.forwardRef((props, ref) => {
+    const hasWindow = typeof window !== "undefined";
     let thumbnailContainer = useRef(null);
     let tagsContainer = useRef(null);
-
     const innerRef = useRef(null);
     const combinedRef = useCombinedRefs(ref, innerRef);
 
@@ -29,14 +29,12 @@ const Thumbnail = React.forwardRef((props, ref) => {
         left: 0,
         top: 0,
     });
-    const height = parseInt(
+    const height = hasWindow ? parseInt(
         getComputedStyle(document.documentElement).getPropertyValue("--thumbnail-height"),
-        10
-    );
-    const width = parseInt(
+        10) : null
+    const width = hasWindow ? parseInt(
         getComputedStyle(document.documentElement).getPropertyValue("--thumbnail-width"),
-        10
-    );
+        10) : null
     const properties = JSON.parse(window.sessionStorage.getItem(props.id));
 
     // Animate dots in and out
