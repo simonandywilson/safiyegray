@@ -35,7 +35,7 @@ const Thumbnail = React.forwardRef((props, ref) => {
     const width = hasWindow ? parseInt(
         getComputedStyle(document.documentElement).getPropertyValue("--thumbnail-width"),
         10) : null
-    const properties = JSON.parse(window.sessionStorage.getItem(props.id));
+    const properties = hasWindow ? JSON.parse(window.sessionStorage.getItem(props.id)) : null
 
     // Animate dots in and out
     useEffect(() => {
