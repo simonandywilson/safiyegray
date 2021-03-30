@@ -28,12 +28,10 @@ const Slide = (props) => {
         });
     }, [props.aspectRatio, props.rotate]);
 
-    // className={ `${style[props.size]} ${style.item}` }
-
     return (
         <div className={style.wrapper} ref={(el) => (element = el)}>
             <Image
-                className={style.item}
+                className={`${style[props.size]}`}
                 key={props._key}
                 alt={props.alt}
                 fluid={{

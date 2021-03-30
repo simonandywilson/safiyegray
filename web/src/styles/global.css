@@ -7,7 +7,8 @@ Variables
 
     --padding: 15px;
 
-    --font-family: Academica;
+    --font-family: bradford;
+    --font-family-italic: bradford_italic;
     --font-size: 1.2rem;
     --small-font-size: 0.9rem;
     --arrow-size: 0.4rem;
@@ -52,13 +53,16 @@ html body {
 Typography
 ----------------------------------------*/
 
-/* £150 */
 @font-face {
-    font-family: "Bradford";
+    font-family: "bradford";
     src: url("../fonts/bradford/bradford_regular.otf") format("opentype");
 }
 
-/* £30 */
+@font-face {
+    font-family: "bradford_italic";
+    src: url("../fonts/bradford/bradford_italic.otf") format("opentype");
+}
+
 @font-face {
     font-family: "Academica";
     src: url("../fonts/academica/AcademicaLight.otf") format("opentype");

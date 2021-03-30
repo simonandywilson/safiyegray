@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import style from "../styles/thumbnail.module.css";
+import style from "../styles/tags.module.css";
 import gsap from "gsap";
 
 const Tag = React.forwardRef((props, ref) => {
@@ -9,18 +9,19 @@ const Tag = React.forwardRef((props, ref) => {
 
     useEffect(() => {
         if (props.complete) {
-        if (hover) {
-            gsap.to(combinedRef.current, {
-                scale: 0,
-                ease: "power4.inOut"
-            });
-        } else {
-            gsap.to(combinedRef.current, {
-                scale: 1,
-                delay: 0.75,
-                ease: "elastic.out(1, 0.3)"
-            });
-        }}
+            if (hover) {
+                gsap.to(combinedRef.current, {
+                    scale: 0,
+                    ease: "power4.inOut",
+                });
+            } else {
+                gsap.to(combinedRef.current, {
+                    scale: 1,
+                    delay: 0.75,
+                    ease: "elastic.out(1, 0.3)",
+                });
+            }
+        }
     }, [hover]);
 
     return (

@@ -1,0 +1,31 @@
+.illustration,
+.publication,
+.print,
+.exhibition {
+    position: absolute;
+    display: inline-block;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    height: var(--dot-size);
+    width: var(--dot-size);
+    border-radius: 50%;
+    transform: scale(0);
+    pointer-events: all;
+}
+
+.illustration {
+    background: var(--illustration-colour);
+}
+
+.publication {
+    background: var(--publication-colour);
+}
+
+.print {
+    background: var(--print-colour);
+}
+
+.exhibition {
+    background: var(--exhibition-colour);
+}

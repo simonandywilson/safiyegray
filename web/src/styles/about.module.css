@@ -10,13 +10,13 @@
 
 .portrait {
     width: 30%;
-    margin-bottom: calc(var(--padding) * 2);
+    margin-bottom: calc(var(--padding) * 4);
 }
 
 .bio {
-    width: 400px;
+    width: 450px;
     text-align: center;
-    margin-bottom: calc(var(--padding) * 1);
+    margin-bottom: calc(var(--padding) * 2);
 }
 
 .bio > p {
@@ -44,7 +44,6 @@
 }
 
 .section {
-    width: 30%;
     margin-left: var(--padding);
     margin-right: var(--padding);
 }
@@ -52,4 +51,8 @@
 .item {
     margin-bottom: var(--padding);
     font-size: var(--small-font-size);
+}
+
+.label {
+    font-family: var(--font-family-italic);
 }

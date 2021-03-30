@@ -68,6 +68,8 @@ const About = () => {
                                 return (
                                     <div key={item._key} className={style.item}>
                                         <div>{item.title}</div>
+                                        <div>{item.subtitle}</div>
+                                        <div className={style.label}>{item.label}</div>
                                         <div>{item.date}</div>
                                     </div>
                                 );
@@ -99,6 +101,8 @@ const getData = graphql`
                 content {
                     _key
                     title
+                    subtitle
+                    label
                     date
                 }
             }

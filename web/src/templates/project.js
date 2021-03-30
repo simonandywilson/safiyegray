@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { graphql } from "gatsby";
 import PortableText from "@sanity/block-content-to-react";
 import {
@@ -10,14 +10,23 @@ import {
 import style from "../styles/project.module.css";
 import { SwiperSlide } from "swiper/react";
 import "swiper/swiper.scss";
+import gsap from "gsap"
+import useWindowSize from "../hooks/useWindowSize";
 
-import SEO from "../components/seo"
+import SEO from "../components/seo";
 import Slide from "../components/slide";
 import Slider from "../components/slider";
-import Underline from "../components/underline"
+import Underline from "../components/underline";
+import Tag from "../components/tag";
 
 const Project = ({ data }) => {
     const project = data.sanityProject;
+
+    // Get window size
+    const hasWindow = typeof window !== "undefined";
+    const windowSize = useWindowSize();
+    const windowWidth = windowSize.width;
+    const windowHeight = windowSize.height;
 
     // Set header info
     const setHome = useLeftUpdateContext();
@@ -28,43 +37,90 @@ const Project = ({ data }) => {
         setHome(<Underline to={"/"} link={"Home"} gatsbyLink={true} />);
         setTitle(project.title);
         setDate(project.date);
-        setDescription(
-            null
-        );
-    }, [setHome, setTitle, setDate, setDescription, project.title, project.date, project.description]);
+        setDescription(null);
+    }, [
+        setHome,
+        setTitle,
+        setDate,
+        setDescription,
+        project.title,
+        project.date,
+        project.description,
+    ]);
+
+    // Add refs to each tag
+    const tagRefs = useRef([]);
+    tagRefs.current = [];
+    const addToRefs = (el) => {
+        if (el && !tagRefs.current.includes(el)) {
+            tagRefs.current.push(el);
+        }
+    };
+
+    // Animate dots in and out
+    useEffect(() => {
+        gsap.set(tagRefs.current, {
+            scale: 0,
+            x: (index, target) => {
+                let left = randomise(target.offsetWidth, windowWidth) - target.offsetWidth;
+                return left;
+            },
+            y: (index, target) => {
+                let top = randomise(target.offsetWidth, windowHeight) - target.offsetHeight;
+                return top;
+            },
+        });
+        gsap.to(tagRefs.current, {
+            scale: 0.75,
+            stagger: {
+                each: 0.25,
+                from: "random",
+                grid: "auto",
+                ease: "power2.inOut",
+            },
+        });
+    }, []);
 
     return (
         <>
-        <SEO
+            <SEO
                 metatitle={project.title}
                 metadescription={project.meta}
                 metabanner={project.thumbnail.asset.fixed}
             />
-        <main className={style.main}>
-            <Slider>
-                {project.images.map((image) => {
+            <div className={style.tagsContainer}>
+                {project.tags.map((tag, index) => {
+                    console.log(tag);
                     return (
-                        <SwiperSlide key={image._key}>
-                            <Slide
-                                title={image.title}
-                                size={image.size}
-                                rotate={image.rotate}
-                                alt={image.alt}
-                                image={image.asset.fluid}
-                                aspectRatio={image.asset.fluid.aspectRatio}
-                            />
-                        </SwiperSlide>
+                        <Tag key={index} ref={addToRefs} tag={tag} complete={true}/>
                     );
                 })}
-            </Slider>
-            <footer className={style.footer}>
-                <PortableText
-                    className={style.text}
-                    blocks={project.description}
-                    renderContainerOnSingleChild={true}
-                />
-            </footer>
-        </main>
+            </div>
+            <main className={style.main}>
+                <Slider>
+                    {project.images.map((image) => {
+                        return (
+                            <SwiperSlide key={image._key}>
+                                <Slide
+                                    title={image.title}
+                                    size={image.size}
+                                    rotate={image.rotate}
+                                    alt={image.alt}
+                                    image={image.asset.fluid}
+                                    aspectRatio={image.asset.fluid.aspectRatio}
+                                />
+                            </SwiperSlide>
+                        );
+                    })}
+                </Slider>
+                <footer className={style.footer}>
+                    <PortableText
+                        className={style.text}
+                        blocks={project.description}
+                        renderContainerOnSingleChild={true}
+                    />
+                </footer>
+            </main>
         </>
     );
 };
@@ -102,3 +158,7 @@ export const query = graphql`
 `;
 
 export default Project;
+
+function randomise(min, max) {
+    return Math.random() * (max - min) + min;
+}
