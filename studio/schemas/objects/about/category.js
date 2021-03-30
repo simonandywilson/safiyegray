@@ -11,6 +11,16 @@ export default {
             type: "string",
         },
         {
+            title: "Subtitle",
+            name: "subtitle",
+            type: "string",
+        },
+        {
+            title: "Label",
+            name: "label",
+            type: "string",
+        },
+        {
             title: "Date",
             name: "date",
             type: "string",

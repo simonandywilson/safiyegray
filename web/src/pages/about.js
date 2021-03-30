@@ -28,12 +28,7 @@ const About = () => {
 
     useEffect(() => {
         gsap.to(portraitRef, {
-            rotation: "random(-10, 10)",
-            duration: 1,
-        });
-        gsap.to(portraitRef, {
-            x: "random(-25, 25)",
-            y: "random(-25, 25)",
+            rotation: "random(-5, 5)",
             duration: 3,
         });
     }, []);
