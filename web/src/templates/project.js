@@ -1,12 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { graphql } from "gatsby";
 import PortableText from "@sanity/block-content-to-react";
-import {
-    useLeftUpdateContext,
-    useCentreUpdateContext,
-    useRightUpdateContext,
-    useDescriptionUpdateContext,
-} from "../state/store";
+import { useNameUpdateContext, useTitleUpdateContext, useDateUpdateContext } from "../state/store";
 import style from "../styles/project.module.css";
 import { SwiperSlide } from "swiper/react";
 import "swiper/swiper.scss";
@@ -16,7 +11,7 @@ import useWindowSize from "../hooks/useWindowSize";
 import SEO from "../components/seo";
 import Slide from "../components/slide";
 import Slider from "../components/slider";
-import Underline from "../components/underline";
+import Underline from "../components/links";
 import Tag from "../components/tag";
 
 const Project = ({ data }) => {
@@ -29,20 +24,17 @@ const Project = ({ data }) => {
     const windowHeight = windowSize.height;
 
     // Set header info
-    const setHome = useLeftUpdateContext();
-    const setTitle = useCentreUpdateContext();
-    const setDate = useRightUpdateContext();
-    const setDescription = useDescriptionUpdateContext();
+    const setName = useNameUpdateContext();
+    const setTitle = useTitleUpdateContext();
+    const setDate = useDateUpdateContext();
     useEffect(() => {
-        setHome(<Underline to={"/"} link={"Home"} gatsbyLink={true} />);
+        setName(<Underline to={"/"} link={"←"} gatsbyLink={true} />);
         setTitle(project.title);
         setDate(project.date);
-        setDescription(null);
     }, [
-        setHome,
+        setName,
         setTitle,
         setDate,
-        setDescription,
         project.title,
         project.date,
         project.description,
@@ -147,7 +139,7 @@ export const query = graphql`
                 size
                 alt
                 asset {
-                    fluid {
+                    fluid(maxWidth: 2000) {
                         ...GatsbySanityImageFluid
                         aspectRatio
                     }

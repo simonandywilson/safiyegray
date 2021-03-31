@@ -1,24 +1,21 @@
 import React from "react";
 import {
-    useLeftContext,
-    useCentreContext,
-    useRightContext,
-    useDescriptionContext,
+    useNameContext,
+    useTitleContext,
+    useDateContext,
 } from "../state/store";
 import style from "../styles/header.module.css";
 
 const Header = () => {
-    const left = useLeftContext()
-    const centre = useCentreContext();
-    const right = useRightContext();
-    const description = useDescriptionContext();
+    const name = useNameContext()
+    const title = useTitleContext();
+    const date = useDateContext();
 
     return (
         <header className={style.header}>
-            <div className={style.left}>{left}</div>
-            <div className={style.centre}>{centre}</div>
-            <div className={style.right}>{right}</div>
-            <div className={style.description}>{description}</div>
+            <div className={style.left}>{name}</div>
+            <div className={style.centre}>{title}</div>
+            <div className={style.right}>{date}</div>
         </header>
     );
 };

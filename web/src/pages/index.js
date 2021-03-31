@@ -5,13 +5,9 @@ import gsap from "gsap";
 
 import Thumbnail from "../components/thumbnail";
 import SEO from "../components/seo";
-import Underline from "../components/underline"
+import Footer from "../components/footer"
 import useWindowSize from "../hooks/useWindowSize";
-import {
-    useLeftUpdateContext,
-    useRightUpdateContext,
-    useDescriptionUpdateContext,
-} from "../state/store";
+import { useNameUpdateContext, useTitleUpdateContext, useDateUpdateContext } from "../state/store";
 
 let padding = 20;
 
@@ -30,14 +26,15 @@ const Home = () => {
     const windowHeight = windowSize.height;
 
     // Set header info
-    const setName = useLeftUpdateContext();
-    const setAbout = useRightUpdateContext();
-    const setDescription = useDescriptionUpdateContext();
+    const setName = useNameUpdateContext();
+    const setTitle = useTitleUpdateContext();
+    const setDate = useDateUpdateContext();
+
     useEffect(() => {
         setName("Safiye Gray");
-        setAbout(<Underline to={"/about"} link={"About"} gatsbyLink={true}/>);
-        setDescription(null);
-    }, [setAbout, setName, setDescription]);
+        setTitle(null);
+        setDate(null);
+    }, [setName, setTitle, setDate]);
 
     // Set initial state to true and store state in sessionStorage
     const initialState = () =>
@@ -356,6 +353,7 @@ const Home = () => {
                             key={project._id}
                             id={project._id}
                             title={project.title}
+                            date={project.date}
                             complete={complete}
                             slug={project.slug.current}
                             tags={project.tags}
@@ -363,6 +361,7 @@ const Home = () => {
                         ></Thumbnail>
                     );
                 })}
+                <Footer />
             </main>
         </>
     );
@@ -376,6 +375,7 @@ const getData = graphql`
             nodes {
                 _id
                 title
+                date(formatString: "YYYY")
                 slug {
                     current
                 }

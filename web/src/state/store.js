@@ -1,103 +1,78 @@
 import React, { createContext, useContext, useState } from "react";
 
-const LeftContext = createContext();
-const LeftUpdateContext = createContext();
-const CentreContext = createContext();
-const CentreUpdateContext = createContext();
-const RightContext = createContext();
-const RightUpdateContext = createContext();
-const DescriptionContext = createContext();
-const DescriptionUpdateContext = createContext();
+const NameContext = createContext();
+const NameUpdateContext = createContext();
+const TitleContext = createContext();
+const TitleUpdateContext = createContext();
+const DateContext = createContext();
+const DateUpdateContext = createContext();
 
-export const useLeftContext = () => {
-    const context = useContext(LeftContext);
+export const useNameContext = () => {
+    const context = useContext(NameContext);
     if (context === undefined) {
-        throw new Error("useLeftContext must be called within leftContextProvider");
+        throw new Error("useNameContext must be called within nameContextProvider");
     }
     return context;
 };
 
-export const useLeftUpdateContext = () => {
-    const context = useContext(LeftUpdateContext);
+export const useNameUpdateContext = () => {
+    const context = useContext(NameUpdateContext);
     if (context === undefined) {
-        throw new Error("useTitleUpdateContext must be called within leftContextProvider");
+        throw new Error("useTitleUpdateContext must be called within nameContextProvider");
     }
     return context;
 };
 
-export const useCentreContext = () => {
-    const context = useContext(CentreContext);
+export const useTitleContext = () => {
+    const context = useContext(TitleContext);
     if (context === undefined) {
-        throw new Error("useCentreContext must be called within centreContextProvider");
+        throw new Error("useTitleContext must be called within titleContextProvider");
     }
     return context;
 };
 
-export const useCentreUpdateContext = () => {
-    const context = useContext(CentreUpdateContext);
+export const useTitleUpdateContext = () => {
+    const context = useContext(TitleUpdateContext);
     if (context === undefined) {
-        throw new Error("useCentreUpdateContext must be called within centreContextProvider");
+        throw new Error("useTitleUpdateContext must be called within titleContextProvider");
     }
     return context;
 };
 
-export const useRightContext = () => {
-    const context = useContext(RightContext);
+export const useDateContext = () => {
+    const context = useContext(DateContext);
     if (context === undefined) {
-        throw new Error("useRightContext must be called within rightContextProvider");
+        throw new Error("useDateContext must be called within dateContextProvider");
     }
     return context;
 };
 
-export const useRightUpdateContext = () => {
-    const context = useContext(RightUpdateContext);
+export const useDateUpdateContext = () => {
+    const context = useContext(DateUpdateContext);
     if (context === undefined) {
-        throw new Error("useRightUpdateContext must be called within rightContextProvider");
-    }
-    return context;
-};
-
-export const useDescriptionContext = () => {
-    const context = useContext(DescriptionContext);
-    if (context === undefined) {
-        throw new Error("useDescriptionContext must be called within descriptionContextProvider");
-    }
-    return context;
-};
-
-export const useDescriptionUpdateContext = () => {
-    const context = useContext(DescriptionUpdateContext);
-    if (context === undefined) {
-        throw new Error(
-            "useDescriptionUpdateContext must be called within descriptionContextProvider"
-        );
+        throw new Error("useDateUpdateContext must be called within dateContextProvider");
     }
     return context;
 };
 
 const ContextProvider = ({ children }) => {
-    const [left, setLeft] = useState(null);
-    const [centre, setCentre] = useState(null);
-    const [right, setRight] = useState(null);
-    const [description, setDescription] = useState(null);
+    const [name, setName] = useState("Safiye Gray");
+    const [title, setTitle] = useState(null);
+    const [date, setDate] = useState(null);
     return (
-        <LeftContext.Provider value={left}>
-            <LeftUpdateContext.Provider value={setLeft}>
-                <CentreContext.Provider value={centre}>
-                    <CentreUpdateContext.Provider value={setCentre}>
-                        <RightContext.Provider value={right}>
-                            <RightUpdateContext.Provider value={setRight}>
-                                <DescriptionContext.Provider value={description}>
-                                    <DescriptionUpdateContext.Provider value={setDescription}>
+        <NameContext.Provider value={name}>
+            <NameUpdateContext.Provider value={setName}>
+                <TitleContext.Provider value={title}>
+                    <TitleUpdateContext.Provider value={setTitle}>
+                        <DateContext.Provider value={date}>
+                            <DateUpdateContext.Provider value={setDate}>
                                             {children}
-                                    </DescriptionUpdateContext.Provider>
-                                </DescriptionContext.Provider>
-                            </RightUpdateContext.Provider>
-                        </RightContext.Provider>
-                    </CentreUpdateContext.Provider>
-                </CentreContext.Provider>
-            </LeftUpdateContext.Provider>
-        </LeftContext.Provider>
+                            </DateUpdateContext.Provider>
+                        </DateContext.Provider>
+                    </TitleUpdateContext.Provider>
+                </TitleContext.Provider>
+            </NameUpdateContext.Provider>
+        </NameContext.Provider>
     );
 };
 

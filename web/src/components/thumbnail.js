@@ -3,7 +3,7 @@ import Img from "gatsby-image";
 import { Link } from "gatsby";
 import style from "../styles/thumbnail.module.css";
 import gsap from "gsap";
-import { useCentreUpdateContext } from "../state/store";
+import { useTitleUpdateContext, useDateUpdateContext } from "../state/store";
 import Tag from "../components/tag"
 
 const Thumbnail = React.forwardRef((props, ref) => {
@@ -13,7 +13,8 @@ const Thumbnail = React.forwardRef((props, ref) => {
     const innerRef = useRef(null);
     const combinedRef = useCombinedRefs(ref, innerRef);
 
-    const setTitle = useCentreUpdateContext();
+    const setTitle = useTitleUpdateContext();
+    const setDate = useDateUpdateContext();
 
     // Add refs to each tag
     const tagRefs = useRef([]);
@@ -128,6 +129,11 @@ const Thumbnail = React.forwardRef((props, ref) => {
         }
     }
 
+    function setHeadings() {
+        setTitle(props.title);
+        setDate(props.date);
+    }
+
     return (
         <div>
             <Link to={props.slug}>
@@ -135,8 +141,8 @@ const Thumbnail = React.forwardRef((props, ref) => {
                     ref={combinedRef}
                     className={style.thumbnail}
                     id={props.id}
-                    onMouseOver={() => setTitle(props.title)}
-                    onFocus={() => setTitle(props.title)}
+                    onMouseOver={() => setHeadings()}
+                    onFocus={() => setHeadings()}
                     onMouseEnter={() => setHover(true)}
                     onMouseLeave={() => setHover(false)}
                     onMouseMove={(e) => mouseMove(e)}
@@ -152,7 +158,14 @@ const Thumbnail = React.forwardRef((props, ref) => {
                     </div>
                     <div className={style.tagsContainer} ref={(el) => (tagsContainer = el)}>
                         {props.tags.map((tag, index) => {
-                            return <Tag key={index} ref={addToRefs} tag={tag} complete={props.complete}/>
+                            return (
+                                <Tag
+                                    key={index}
+                                    ref={addToRefs}
+                                    tag={tag}
+                                    complete={props.complete}
+                                />
+                            );
                         })}
                     </div>
                 </figure>

@@ -1,0 +1,24 @@
+.footer {
+    position: fixed;
+    width: calc(100% - (var(--padding)) * 2);
+    margin: var(--padding);
+    bottom: 0;
+    z-index: 99;
+    display: grid;
+    grid-template-columns: var(--header-layout);
+
+    
+}
+
+.centre {
+    justify-self: center;
+    text-align: center;
+}
+
+.right {
+    justify-self: flex-end;
+}
+
+.italics {
+font-family: var(--font-family-italic);
+}

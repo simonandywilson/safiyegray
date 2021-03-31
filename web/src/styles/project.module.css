@@ -58,6 +58,7 @@
     left: 0;
     position: absolute;
     transform: scale(0.75);
-    z-index: 99;
+    z-index: -99;
     pointer-events: none;
+    display: none;
 }
