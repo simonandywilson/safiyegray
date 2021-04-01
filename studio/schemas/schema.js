@@ -7,12 +7,14 @@ import description from "./objects/project/description";
 import images from "./objects/project/images";
 import caption from "./objects/project/caption";
 
+import sketchbook from "./documents/sketchbook";
+import sketch from "./objects/sketchbook/sketch";
+import alt from "./objects/sketchbook/alt";
+
 import about from "./documents/about";
 import cv from "./objects/about/cv";
 import categories from "./objects/about/categories";
 import category from "./objects/about/category";
-import contact from "./objects/about/contact";
-import social from "./objects/about/social";
 
 import settings from "./documents/settings";
 import seo from "./documents/seo";
@@ -27,11 +29,13 @@ export default createSchema({
         caption,
         about,
 
+        sketchbook,
+        sketch,
+        alt,
+
         cv,
         categories,
         category,
-        contact,
-        social,
 
         settings,
 

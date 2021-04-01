@@ -1,6 +1,7 @@
 import S from "@sanity/desk-tool/structure-builder";
 import { BiCube } from "react-icons/bi";
 import { BiUser } from "react-icons/bi";
+import { BiPalette } from "react-icons/bi";
 import { BiColorFill } from "react-icons/bi";
 import { BiGlobe } from "react-icons/bi";
 
@@ -16,6 +17,15 @@ export default () =>
                 .title("About")
                 .icon(BiUser)
                 .child(S.document().title("About").schemaType("about").documentId("about")),
+            S.listItem()
+                .title("Sketchbook")
+                .icon(BiPalette)
+                .child(
+                    S.document()
+                        .title("Sketchbook")
+                        .schemaType("sketchbook")
+                        .documentId("sketchbook")
+                ),
             S.divider(),
             S.listItem()
                 .title("Settings")

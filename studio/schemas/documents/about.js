@@ -16,7 +16,13 @@ export default {
     __experimental_actions: [/*'create',*/ "update", /*'delete',*/ "publish"],
     fields: [
         {
-            // Occupation
+            // Title
+            title: "Title",
+            name: "title",
+            type: "string",
+        },
+        {
+            // Bio
             title: "Bio",
             name: "bio",
             type: "description",
@@ -32,12 +38,6 @@ export default {
             title: "CV",
             name: "cv",
             type: "cv",
-        },
-        {
-            // Contact
-            title: "Contact",
-            name: "contact",
-            type: "contact",
         },
     ],
 };
