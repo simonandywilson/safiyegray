@@ -6,14 +6,6 @@ export default {
     type: "image",
     fields: [
         {
-            title: "Title",
-            name: "title",
-            type: "string",
-            options: {
-                isHighlighted: true,
-            },
-        },
-        {
             title: "Rotate",
             name: "rotate",
             type: "boolean",
@@ -53,7 +45,7 @@ export default {
     },
     preview: {
         select: {
-            title: "title",
+            title: "alt",
             media: "asset",
             subtitle: "size",
             rotate: "rotate",

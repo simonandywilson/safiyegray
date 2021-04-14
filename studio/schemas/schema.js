@@ -8,8 +8,6 @@ import images from "./objects/project/images";
 import caption from "./objects/project/caption";
 
 import sketchbook from "./documents/sketchbook";
-import sketch from "./objects/sketchbook/sketch";
-import alt from "./objects/sketchbook/alt";
 
 import about from "./documents/about";
 import cv from "./objects/about/cv";
@@ -30,8 +28,6 @@ export default createSchema({
         about,
 
         sketchbook,
-        sketch,
-        alt,
 
         cv,
         categories,

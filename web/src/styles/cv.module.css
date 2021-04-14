@@ -30,7 +30,7 @@
 
 .bio > p{
     margin: 0;
-    margin-bottom: calc(var(--padding) * 4);
+    margin-bottom: calc(var(--padding) * 3);
 }
 
 .bio > p > a {
@@ -59,7 +59,7 @@
 
 .date {
     text-align: right;
-    font-family: var(--font-family-italic);
+    font-size: var(--font-size-small);
 }
 
 .item {

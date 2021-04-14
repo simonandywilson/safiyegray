@@ -18,7 +18,6 @@ const Project = ({ data }) => {
     const project = data.sanityProject;
 
     // Get window size
-    const hasWindow = typeof window !== "undefined";
     const windowSize = useWindowSize();
     const windowWidth = windowSize.width;
     const windowHeight = windowSize.height;
@@ -37,7 +36,6 @@ const Project = ({ data }) => {
         setDate,
         project.title,
         project.date,
-        project.description,
     ]);
 
     // Add refs to each tag
@@ -94,7 +92,6 @@ const Project = ({ data }) => {
                         return (
                             <SwiperSlide key={image._key}>
                                 <Slide
-                                    title={image.title}
                                     size={image.size}
                                     rotate={image.rotate}
                                     alt={image.alt}
@@ -134,7 +131,6 @@ export const query = graphql`
             meta
             images {
                 _key
-                title
                 rotate
                 size
                 alt

@@ -5,6 +5,7 @@ import { useNameUpdateContext, useTitleUpdateContext, useDateUpdateContext } fro
 import gsap from "gsap";
 import style from "../styles/cv.module.css";
 import PortableText from "@sanity/block-content-to-react";
+import SEO from "../components/seo";
 import Links from "../components/links";
 
 const CV = () => {
@@ -30,22 +31,28 @@ const CV = () => {
     }, []);
 
     return (
-        <main className={style.main}>
-            <div className={style.left}>
-                <div className={style.portrait} ref={(el) => (portraitRef = el)}>
-                    <Image
-                        fluid={{
-                            ...about.portrait.asset.fluid,
-                            aspectRatio: 0.7,
-                        }}
-                        durationFadeIn={1000}
-                    />
+        <>
+            <SEO
+                metatitle={about.title}
+                metadescription={about.meta}
+                metabanner={about.portrait.asset.fluid}
+            />
+            <main className={style.main}>
+                <div className={style.left}>
+                    <div className={style.portrait} ref={(el) => (portraitRef = el)}>
+                        <Image
+                            fluid={{
+                                ...about.portrait.asset.fluid,
+                                aspectRatio: 0.7,
+                            }}
+                            durationFadeIn={1000}
+                        />
+                    </div>
                 </div>
-            </div>
-            <div className={style.right}>
-                <div className={style.bio}>
-                    <PortableText className={style.text} blocks={about._rawBio} />
-                </div>
+                <div className={style.right}>
+                    <div className={style.bio}>
+                        <PortableText className={style.text} blocks={about._rawBio} />
+                    </div>
                     {about.cv.map((category) => {
                         return (
                             <section className={style.section} key={category._key}>
@@ -68,8 +75,9 @@ const CV = () => {
                             </section>
                         );
                     })}
-            </div>
-        </main>
+                </div>
+            </main>
+        </>
     );
 };
 
@@ -78,11 +86,13 @@ export default CV;
 const getData = graphql`
     {
         sanityAbout {
+            title
             _rawBio
+            meta
             portrait {
                 asset {
-                    fluid {
-                        src
+                    fluid(maxWidth: 1000) {
+                        ...GatsbySanityImageFluid
                     }
                 }
             }

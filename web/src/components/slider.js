@@ -1,11 +1,8 @@
-import React from 'react'
-import { Swiper } from 'swiper/react';
-import SwiperCore, { Scrollbar, Mousewheel } from "swiper";
+import React from "react";
+import { Swiper } from "swiper/react";
+import SwiperCore, { Mousewheel } from "swiper";
 
-import 'swiper/swiper.scss';
-import "swiper/components/navigation/navigation.scss";
-import "swiper/components/pagination/pagination.scss";
-import "swiper/components/scrollbar/scrollbar.scss";
+import "swiper/swiper.scss";
 
 SwiperCore.use([Mousewheel]);
 
@@ -18,8 +15,6 @@ const Slider = (props) => {
             simulateTouch={false}
             loop={true}
             mousewheel={{ sensitivity: 1 }}
-            // scrollbar={{ draggable: true }}
-            // grabCursor={true}
             breakpoints={{
                 // when window width is more than 0px
                 0: {
@@ -47,6 +42,6 @@ const Slider = (props) => {
             {props.children}
         </Swiper>
     );
-}
+};
 
-export default Slider
+export default Slider;

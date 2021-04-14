@@ -10,4 +10,5 @@
     height: var(--dot-size);
     background: var(--cursor-colour);
     z-index: 99;
+    visibility: hidden;
 }

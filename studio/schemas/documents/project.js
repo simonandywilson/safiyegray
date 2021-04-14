@@ -69,7 +69,7 @@ export default {
         },
         // SEO Description
         {
-            title: "Short Description",
+            title: "SEO Description",
             name: "meta",
             type: "string",
             description:

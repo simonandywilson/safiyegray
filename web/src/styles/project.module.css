@@ -30,13 +30,21 @@
     text-align: center;
     display: flex;
     justify-content: center;
-    font-size: var(--small-font-size);
+    font-size: var(--font-size-small);
     line-height: 100%;
 }
 
 .text {
     width: 50%;
     max-width: 500px;
+}
+
+.image {
+    transition: transform 0.3s;
+}
+
+.image:hover {
+    transform: scale(1.025);
 }
 
 .s {

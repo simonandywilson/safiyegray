@@ -1,7 +1,6 @@
 import React from "react";
 import ContextProvider from "../state/store";
-import Header from "../components/header";
-import Cursor from "../components/cursor";
+import Static from "../components/static";
 import { TransitionProvider, TransitionViews } from "gatsby-plugin-transitions";
 
 const Layout = ({ location, children }) => {
@@ -26,8 +25,7 @@ const Layout = ({ location, children }) => {
                     },
                 }}
             >
-                <Header />
-                <Cursor />
+                <Static />
                 <TransitionViews>{children}</TransitionViews>
             </TransitionProvider>
         </ContextProvider>

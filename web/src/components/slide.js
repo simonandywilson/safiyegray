@@ -31,7 +31,7 @@ const Slide = (props) => {
     return (
         <div className={style.wrapper} ref={(el) => (element = el)}>
             <Image
-                className={`${style[props.size]}`}
+                className={`${style[props.size]} ${style.image}`}
                 key={props._key}
                 alt={props.alt}
                 fluid={{
