@@ -28,7 +28,7 @@ const Misc = ({ data }) => {
             <SEO
                 metatitle={sketchbook.title}
                 metadescription={sketchbook.meta}
-                metabanner={sketchbook.image[0].asset.fluid}
+                metabanner={sketchbook.images[0].asset.fluid}
             />
             <main className={style.main}>
                 <Slider>
@@ -62,8 +62,9 @@ export const query = graphql`
                 rotate
                 alt
                 asset {
-                    fluid {
-                        src
+                    fluid(maxWidth: 2000) {
+                        ...GatsbySanityImageFluid
+                        aspectRatio
                     }
                 }
             }
