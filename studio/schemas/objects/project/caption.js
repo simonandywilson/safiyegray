@@ -13,20 +13,23 @@ export default {
             options: {
                 isHighlighted: true,
             },
+            initialValue: false,
         },
         {
             title: "Image Size",
             name: "size",
             type: "string",
-            description: "Select whether the image spans over one or two columns.",
             options: {
                 list: [
                     { title: "Small", value: "s" },
                     { title: "Medium", value: "m" },
                     { title: "Large", value: "l" },
                 ],
+                layout: "radio",
+                direction: "horizontal",
                 isHighlighted: true,
             },
+            initialValue: "s",
             validation: (Rule) => Rule.required().warning(`Image size is required.`),
         },
         {
@@ -40,9 +43,6 @@ export default {
             validation: (Rule) => Rule.required().warning(`Image alt is required.`),
         },
     ],
-    initialValue: {
-        rotate: false,
-    },
     preview: {
         select: {
             title: "alt",

@@ -14,9 +14,9 @@
     "@sanity/default-login",
     "@sanity/dashboard",
     "@sanity/desk-tool",
+    "@sanity/color-input",
     "dashboard-widget-netlify",
-    "dashboard-widget-document-list",
-    "@sanity/color-input"
+    "dashboard-widget-document-list"
   ],
   "env": {
     "development": {
