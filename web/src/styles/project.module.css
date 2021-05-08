@@ -3,6 +3,7 @@
     height: 100vh;
     width: 100%;
     overflow: hidden;
+    /* background: rgb(184, 188, 224); */
 }
 
 .main > div {
