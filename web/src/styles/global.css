@@ -3,16 +3,17 @@ Variables
 ----------------------------------------*/
 
 :root {
-    --header-layout: 0.5fr 1fr 0.5fr;
+    --header-layout: 1fr 1fr;
 
     --padding: 1.1rem;
 
-    --font-family: bradford;
-    --font-family-italic: bradford_italic;
-    --font-size: 1.1rem;
+    --font-family: suisse;
+    --font-family-italic: suisse_italic;
+    --font-size: 2rem;
+    --font-size-medium: 1.2rem;
     --font-size-small: 0.9rem;
     --arrow-size: 0.4rem;
-    --line-height: 1.3rem;
+    --line-height: 120%;
 
     --column-gap: 40px;
 
@@ -63,10 +64,17 @@ Typography
     src: url("../fonts/bradford/bradford_italic.otf") format("opentype");
 }
 
+
 @font-face {
-    font-family: "Academica";
-    src: url("../fonts/academica/AcademicaLight.otf") format("opentype");
+    font-family: "suisse";
+    src: url("../fonts/suisse/SuisseIntl-Regular.otf") format("opentype");
 }
+
+@font-face {
+    font-family: "suisse_italic";
+    src: url("../fonts/suisse/SuisseIntl-RegularItalic.otf") format("opentype");
+}
+
 
 a {
     color: #000000;

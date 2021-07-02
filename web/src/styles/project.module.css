@@ -32,7 +32,7 @@
     display: flex;
     justify-content: center;
     font-size: var(--font-size-small);
-    line-height: 100%;
+    line-height: var(--line-height);
 }
 
 .text {

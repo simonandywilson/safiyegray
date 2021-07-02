@@ -5,7 +5,7 @@ import { useNameUpdateContext, useTitleUpdateContext, useDateUpdateContext } fro
 import style from "../styles/project.module.css";
 import { SwiperSlide } from "swiper/react";
 import "swiper/swiper.scss";
-import gsap from "gsap"
+import gsap from "gsap";
 import useWindowSize from "../hooks/useWindowSize";
 
 import SEO from "../components/seo";
@@ -30,13 +30,7 @@ const Project = ({ data }) => {
         setName(<Underline to={"/"} link={"←"} gatsbyLink={true} />);
         setTitle(project.title);
         setDate(project.date);
-    }, [
-        setName,
-        setTitle,
-        setDate,
-        project.title,
-        project.date,
-    ]);
+    }, [setName, setTitle, setDate, project.title, project.date]);
 
     // Add refs to each tag
     const tagRefs = useRef([]);
@@ -49,26 +43,28 @@ const Project = ({ data }) => {
 
     // Animate dots in and out
     useEffect(() => {
-        gsap.set(tagRefs.current, {
-            scale: 0,
-            x: (index, target) => {
-                let left = randomise(target.offsetWidth, windowWidth) - target.offsetWidth;
-                return left;
-            },
-            y: (index, target) => {
-                let top = randomise(target.offsetWidth, windowHeight) - target.offsetHeight;
-                return top;
-            },
-        });
-        gsap.to(tagRefs.current, {
-            scale: 0.75,
-            stagger: {
-                each: 0.25,
-                from: "random",
-                grid: "auto",
-                ease: "power2.inOut",
-            },
-        });
+        if (tagRefs.current.length > 0) {
+            gsap.set(tagRefs.current, {
+                scale: 0,
+                x: (index, target) => {
+                    let left = randomise(target.offsetWidth, windowWidth) - target.offsetWidth;
+                    return left;
+                },
+                y: (index, target) => {
+                    let top = randomise(target.offsetWidth, windowHeight) - target.offsetHeight;
+                    return top;
+                },
+            });
+            gsap.to(tagRefs.current, {
+                scale: 0.75,
+                stagger: {
+                    each: 0.25,
+                    from: "random",
+                    grid: "auto",
+                    ease: "power2.inOut",
+                },
+            });
+        }
     }, []);
 
     return (
@@ -81,9 +77,7 @@ const Project = ({ data }) => {
             <div className={style.tagsContainer}>
                 {project.tags.map((tag, index) => {
                     console.log(tag);
-                    return (
-                        <Tag key={index} ref={addToRefs} tag={tag} complete={true}/>
-                    );
+                    return <Tag key={index} ref={addToRefs} tag={tag} complete={true} />;
                 })}
             </div>
             <main className={style.main}>
@@ -103,11 +97,13 @@ const Project = ({ data }) => {
                     })}
                 </Slider>
                 <footer className={style.footer}>
-                    <PortableText
-                        className={style.text}
-                        blocks={project.description}
-                        renderContainerOnSingleChild={true}
-                    />
+                    {project.description && (
+                        <PortableText
+                            className={style.text}
+                            blocks={project.description}
+                            renderContainerOnSingleChild={true}
+                        />
+                    )}
                 </footer>
             </main>
         </>

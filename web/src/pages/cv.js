@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import Image from "gatsby-image";
-import { useNameUpdateContext, useTitleUpdateContext, useDateUpdateContext } from "../state/store";
+import { useNameUpdateContext, useTitleUpdateContext } from "../state/store";
 import gsap from "gsap";
 import style from "../styles/cv.module.css";
 import PortableText from "@sanity/block-content-to-react";
@@ -14,12 +14,10 @@ const CV = () => {
     // Set header info
     const setName = useNameUpdateContext();
     const setTitle = useTitleUpdateContext();
-    const setDate = useDateUpdateContext();
     useEffect(() => {
         setName(<Links to={"/"} link={"Home"} gatsbyLink={true} />);
-        setTitle(null);
-        setDate(null);
-    }, [setName, setTitle, setDate]);
+        setTitle(about.title)
+    }, [setName, setTitle]);
 
     let portraitRef = useRef(null);
 
@@ -35,7 +33,7 @@ const CV = () => {
             <SEO
                 metatitle={about.title}
                 metadescription={about.meta}
-                metabanner={about.portrait.asset.fluid}
+                metabanner={about.portrait.asset.fluid.src}
             />
             <main className={style.main}>
                 <div className={style.left}>

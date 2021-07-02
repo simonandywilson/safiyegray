@@ -8,7 +8,7 @@ const Tag = React.forwardRef((props, ref) => {
     const [hover, setHover] = useState(false);
 
     useEffect(() => {
-        if (props.complete) {
+        if (props.status === "complete") {
             if (hover) {
                 gsap.to(combinedRef.current, {
                     scale: 0,

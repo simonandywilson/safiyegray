@@ -10,7 +10,6 @@ const Footer = () => {
             <div className={style.left}>
                 <Links to={"/cv"} link={cv.title} gatsbyLink={true} />
             </div>
-            <div className={style.centre}></div>
             <div className={style.right}>
                 <Links to={"/misc"} link={sketchbook.title} gatsbyLink={true} />
             </div>

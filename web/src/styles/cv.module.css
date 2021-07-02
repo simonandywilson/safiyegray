@@ -1,22 +1,27 @@
 .main {
     width: 100%;
     position: absolute;
-    display: flex;
     margin-top: calc(var(--padding) * 3);
     padding: var(--padding);
+    font-size: var(--font-size-medium);
+    line-height: var(--line-height);
 }
 
 .left {
+    position: fixed;
     width: 50%;
     display: flex;
     justify-content: center;
 }
 
 .right {
+    position: absolute;
     width: 50%;
+    right: 0;
     display: grid;
     grid-template-columns: 0.15fr 0.85fr;
     column-gap: calc(var(--padding) * 2);
+    padding-right: calc(var(--padding) * 4);
 }
 
 .portrait {

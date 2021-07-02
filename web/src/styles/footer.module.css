@@ -5,9 +5,7 @@
     bottom: 0;
     z-index: 99;
     display: grid;
-    grid-template-columns: var(--header-layout);
-
-    
+    grid-template-columns: var(--header-layout);    
 }
 
 .centre {
