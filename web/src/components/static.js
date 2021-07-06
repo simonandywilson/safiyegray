@@ -68,9 +68,22 @@ const Static = () => {
     // }, []);
 
     const setThumbSize = useCallback(() => {
-        const [height, width] = sizer(window.innerWidth, window.innerHeight, totalCount.totalCount);
-        document.documentElement.style.setProperty("--thumbnail-height", `${Math.round(height)}px`);
-        document.documentElement.style.setProperty("--thumbnail-width", `${Math.round(width)}px`);
+        if (hasWindow) {
+            const [height, width] = sizer(
+                window.innerWidth,
+                window.innerHeight,
+                totalCount.totalCount
+            );
+            document.documentElement.style.setProperty(
+                "--thumbnail-height",
+                `${Math.round(height)}px`
+            );
+            document.documentElement.style.setProperty(
+                "--thumbnail-width",
+                `${Math.round(width)}px`
+            );
+        }
+        
     }, []);
 
     setThumbSize()
