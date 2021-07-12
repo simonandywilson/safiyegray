@@ -9,6 +9,14 @@ export default {
             name: "title",
             type: "string",
         },
+        // Description
+        {
+            title: "Description",
+            name: "description",
+            type: "description",
+            description:
+                "Use Shift+Return to add a line break without adding paragraph formatting and spacing.",
+        },
         // SEO Description
         {
             title: "SEO Description",

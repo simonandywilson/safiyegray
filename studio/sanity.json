@@ -12,11 +12,8 @@
     "@sanity/components",
     "@sanity/default-layout",
     "@sanity/default-login",
-    "@sanity/dashboard",
     "@sanity/desk-tool",
-    "@sanity/color-input",
-    "dashboard-widget-netlify",
-    "dashboard-widget-document-list"
+    "@sanity/color-input"
   ],
   "env": {
     "development": {
@@ -33,10 +30,6 @@
     {
       "name": "part:@sanity/desk-tool/structure",
       "path": "./deskStructure.js"
-    },
-    {
-      "implements": "part:@sanity/dashboard/config",
-      "path": "./dashboardConfig.js"
     }
   ]
 }

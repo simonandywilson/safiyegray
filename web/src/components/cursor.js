@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import style from "../styles/cursor.module.css";
+import { isMobile } from "react-device-detect";
 import gsap from "gsap";
 
 const Cursor = () => {
@@ -7,8 +8,12 @@ const Cursor = () => {
 
     useEffect(() => {
         document.addEventListener("mousemove", move);
+        console.log();
 
         function move(e) {
+            console.log(e.target.tagName);
+        
+
             const { clientX, clientY } = e;
 
             const cursorX = clientX - cursorRef.current.clientWidth / 2;
@@ -19,14 +24,30 @@ const Cursor = () => {
                 y: cursorY,
                 duration: 0.1,
             });
+
+            if (
+                e.target.tagName === "A" ||
+                e.target.dataset.tag ||
+                e.target.parentNode.dataset.tag
+            ) {
+                gsap.to(cursorRef.current, {
+                    scale: 1.1,
+                    duration: 0.5,
+                });
+            } else {
+                gsap.to(cursorRef.current, {
+                    scale: 0.75,
+                    duration: 0.5,
+                });
+            }
         }
-        document.addEventListener("mouseenter", () => {
+        document.addEventListener("mouseover", () => {
             gsap.to(cursorRef.current, {
                 autoAlpha: 1,
                 duration: 0.25,
             });
         });
-        document.addEventListener("mouseleave", () => {
+        document.addEventListener("mouseout", () => {
             gsap.to(cursorRef.current, {
                 autoAlpha: 0,
                 duration: 0.25,
@@ -51,7 +72,11 @@ const Cursor = () => {
 
     return (
         <>
-            <div className={style.cursor} ref={cursorRef}></div>
+            <div
+                style={{ display: isMobile ? "none" : "block" }}
+                className={style.cursor}
+                ref={cursorRef}
+            ></div>
         </>
     );
 };

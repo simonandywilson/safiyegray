@@ -8,22 +8,6 @@ const Layout = ({ location, children }) => {
         <ContextProvider>
             <TransitionProvider
                 location={location}
-                mode="successive"
-                enter={{
-                    opacity: 0,
-                    config: {
-                        duration: 500,
-                    },
-                }}
-                usual={{
-                    opacity: 1,
-                }}
-                leave={{
-                    opacity: 0,
-                    config: {
-                        duration: 500,
-                    },
-                }}
             >
                 <Static />
                 <TransitionViews>{children}</TransitionViews>

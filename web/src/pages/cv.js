@@ -6,7 +6,7 @@ import gsap from "gsap";
 import style from "../styles/cv.module.css";
 import PortableText from "@sanity/block-content-to-react";
 import SEO from "../components/seo";
-import Links from "../components/links";
+import { TransitionLink } from "gatsby-plugin-transitions";
 
 const CV = () => {
     // Get data
@@ -15,8 +15,53 @@ const CV = () => {
     const setName = useNameUpdateContext();
     const setTitle = useTitleUpdateContext();
     useEffect(() => {
-        setName(<Links to={"/"} link={"Home"} gatsbyLink={true} />);
-        setTitle(about.title)
+        setName(
+            <TransitionLink
+                data-tag={"link"}
+                to={"/"}
+                leave={{
+                    opacity: 0,
+                    config: {
+                        duration: 500,
+                    },
+                }}
+                enter={{
+                    opacity: 0,
+                    config: {
+                        duration: 500,
+                    },
+                }}
+                usual={{
+                    opacity: 1,
+                }}
+                mode="immediate"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="46.65"
+                    height="26.68"
+                    viewBox="0 0 46.65 26.68"
+                    stroke="var(--title-colour)"
+                >
+                    <polyline
+                        points="14.75 25.26 2.83 13.34 14.75 1.41"
+                        fill="none"
+                        strokeMiterlimit="10"
+                        strokeWidth="4"
+                    />
+                    <line
+                        x1="2.83"
+                        y1="13.34"
+                        x2="46.65"
+                        y2="13.34"
+                        fill="none"
+                        strokeMiterlimit="10"
+                        strokeWidth="4"
+                    />
+                </svg>
+            </TransitionLink>
+        );
+        setTitle("")
     }, [setName, setTitle]);
 
     let portraitRef = useRef(null);
@@ -54,18 +99,14 @@ const CV = () => {
                     {about.cv.map((category) => {
                         return (
                             <section className={style.section} key={category._key}>
-                                <div className={style.titleContainer}>
-                                    <div className={style.title}>{category.title}</div>
-                                </div>
-
                                 {category.content.map((item) => {
                                     return (
                                         <div key={item._key} className={style.item}>
-                                            <div className={style.date}>{item.date}</div>
                                             <div>
                                                 <div>{item.title}</div>
                                                 <div>{item.subtitle}</div>
                                                 <div className={style.label}>{item.label}</div>
+                                                <div className={style.date}>{item.date}</div>
                                             </div>
                                         </div>
                                     );

@@ -4,7 +4,8 @@ const StatusContext = createContext();
 const StatusUpdateContext = createContext();
 const PropertiesContext = createContext();
 const PropertiesUpdateContext = createContext();
-
+const SizeContext = createContext();
+const SizeUpdateContext = createContext();
 const NameContext = createContext();
 const NameUpdateContext = createContext();
 const TitleContext = createContext();
@@ -39,7 +40,25 @@ export const usePropertiesContext = () => {
 export const usePropertiesUpdateContext = () => {
     const context = useContext(PropertiesUpdateContext);
     if (context === undefined) {
-        throw new Error("usePropertiesUpdateContext must be called within propertiesStatusProvider");
+        throw new Error(
+            "usePropertiesUpdateContext must be called within propertiesStatusProvider"
+        );
+    }
+    return context;
+};
+
+export const useSizeContext = () => {
+    const context = useContext(SizeContext);
+    if (context === undefined) {
+        throw new Error("useSizeContext must be called within sizeStatusProvider");
+    }
+    return context;
+};
+
+export const useSizeUpdateContext = () => {
+    const context = useContext(SizeUpdateContext);
+    if (context === undefined) {
+        throw new Error("useSizeUpdateContext must be called within sizeStatusProvider");
     }
     return context;
 };
@@ -95,27 +114,33 @@ export const useDateUpdateContext = () => {
 const ContextProvider = ({ children }) => {
     const [status, setStatus] = useState("initial");
     const [properties, setProperties] = useState([]);
+    const [size, setSize] = useState(null);
     const [name, setName] = useState("Safiye Gray");
     const [title, setTitle] = useState(null);
     const [date, setDate] = useState(null);
+
     return (
         <StatusContext.Provider value={status}>
             <StatusUpdateContext.Provider value={setStatus}>
                 <PropertiesContext.Provider value={properties}>
                     <PropertiesUpdateContext.Provider value={setProperties}>
-                        <NameContext.Provider value={name}>
-                            <NameUpdateContext.Provider value={setName}>
-                                <TitleContext.Provider value={title}>
-                                    <TitleUpdateContext.Provider value={setTitle}>
-                                        <DateContext.Provider value={date}>
-                                            <DateUpdateContext.Provider value={setDate}>
-                                                {children}
-                                            </DateUpdateContext.Provider>
-                                        </DateContext.Provider>
-                                    </TitleUpdateContext.Provider>
-                                </TitleContext.Provider>
-                            </NameUpdateContext.Provider>
-                        </NameContext.Provider>
+                        <SizeContext.Provider value={size}>
+                            <SizeUpdateContext.Provider value={setSize}>
+                                <NameContext.Provider value={name}>
+                                    <NameUpdateContext.Provider value={setName}>
+                                        <TitleContext.Provider value={title}>
+                                            <TitleUpdateContext.Provider value={setTitle}>
+                                                <DateContext.Provider value={date}>
+                                                    <DateUpdateContext.Provider value={setDate}>
+                                                        {children}
+                                                    </DateUpdateContext.Provider>
+                                                </DateContext.Provider>
+                                            </TitleUpdateContext.Provider>
+                                        </TitleContext.Provider>
+                                    </NameUpdateContext.Provider>
+                                </NameContext.Provider>
+                            </SizeUpdateContext.Provider>
+                        </SizeContext.Provider>
                     </PropertiesUpdateContext.Provider>
                 </PropertiesContext.Provider>
             </StatusUpdateContext.Provider>

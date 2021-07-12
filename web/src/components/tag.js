@@ -8,7 +8,7 @@ const Tag = React.forwardRef((props, ref) => {
     const [hover, setHover] = useState(false);
 
     useEffect(() => {
-        if (props.status === "complete") {
+        if (props.status === "complete" || props.status === "load") {
             if (hover) {
                 gsap.to(combinedRef.current, {
                     scale: 0,
@@ -22,14 +22,17 @@ const Tag = React.forwardRef((props, ref) => {
                 });
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hover]);
 
     return (
         <span
+            data-tag={"link"}
             className={style[props.tag]}
             ref={combinedRef}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
+            role="presentation"
         />
     );
 });

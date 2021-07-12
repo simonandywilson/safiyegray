@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { graphql } from "gatsby";
 import PortableText from "@sanity/block-content-to-react";
+import { TransitionLink } from "gatsby-plugin-transitions";
 import { useNameUpdateContext, useTitleUpdateContext, useDateUpdateContext } from "../state/store";
 import style from "../styles/project.module.css";
 import { SwiperSlide } from "swiper/react";
@@ -11,7 +12,6 @@ import useWindowSize from "../hooks/useWindowSize";
 import SEO from "../components/seo";
 import Slide from "../components/slide";
 import Slider from "../components/slider";
-import Underline from "../components/links";
 import Tag from "../components/tag";
 
 const Project = ({ data }) => {
@@ -27,7 +27,51 @@ const Project = ({ data }) => {
     const setTitle = useTitleUpdateContext();
     const setDate = useDateUpdateContext();
     useEffect(() => {
-        setName(<Underline to={"/"} link={"←"} gatsbyLink={true} />);
+        setName(
+            <TransitionLink
+                to={"/"}
+                leave={{
+                    opacity: 0,
+                    config: {
+                        duration: 500,
+                    },
+                }}
+                enter={{
+                    opacity: 0,
+                    config: {
+                        duration: 500,
+                    },
+                }}
+                usual={{
+                    opacity: 1,
+                }}
+                mode="immediate"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="46.65"
+                    height="26.68"
+                    viewBox="0 0 46.65 26.68"
+                    stroke="var(--title-colour)"
+                >
+                    <polyline
+                        points="14.75 25.26 2.83 13.34 14.75 1.41"
+                        fill="none"
+                        strokeMiterlimit="10"
+                        strokeWidth="4"
+                    />
+                    <line
+                        x1="2.83"
+                        y1="13.34"
+                        x2="46.65"
+                        y2="13.34"
+                        fill="none"
+                        strokeMiterlimit="10"
+                        strokeWidth="4"
+                    />
+                </svg>
+            </TransitionLink>
+        );
         setTitle(project.title);
         setDate(project.date);
     }, [setName, setTitle, setDate, project.title, project.date]);
@@ -65,6 +109,7 @@ const Project = ({ data }) => {
                 },
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -76,7 +121,6 @@ const Project = ({ data }) => {
             />
             <div className={style.tagsContainer}>
                 {project.tags.map((tag, index) => {
-                    console.log(tag);
                     return <Tag key={index} ref={addToRefs} tag={tag} complete={true} />;
                 })}
             </div>

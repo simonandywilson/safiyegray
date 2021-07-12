@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useStaticQuery, graphql } from "gatsby";
-import { globalHistory } from "@reach/router";
 import style from "../styles/index.module.css";
 import gsap from "gsap";
 
@@ -8,11 +7,14 @@ import Thumbnail from "../components/thumbnail";
 import SEO from "../components/seo";
 import Footer from "../components/footer";
 import useWindowSize from "../hooks/useWindowSize";
+import { TransitionLink } from "gatsby-plugin-transitions";
 import {
     useStatusContext,
     useStatusUpdateContext,
     usePropertiesContext,
     usePropertiesUpdateContext,
+    useSizeContext,
+    useSizeUpdateContext,
     useNameUpdateContext,
     useTitleUpdateContext,
     useDateUpdateContext,
@@ -32,10 +34,13 @@ const Home = () => {
     const setStatus = useStatusUpdateContext();
     const properties = usePropertiesContext();
     const setProperties = usePropertiesUpdateContext();
+    const size = useSizeContext();
+    const setSize = useSizeUpdateContext();
     const setName = useNameUpdateContext();
     const setTitle = useTitleUpdateContext();
     const setDate = useDateUpdateContext();
 
+    const [clicked, setClicked] = useState(null);
 
     // Window size
     const hasWindow = typeof window !== "undefined";
@@ -50,18 +55,6 @@ const Home = () => {
         setDate(null);
     }, [setName, setTitle, setDate]);
 
-    // Set initial state to true and store state in sessionStorage
-    // const initialState = () =>
-    //     hasWindow ? window.sessionStorage.getItem("initial") || true : null;
-    // const [initial, setInitial] = useState(initialState);
-    // useEffect(() => {
-    //     if (hasWindow) {
-    //         window.sessionStorage.setItem("initial", initial);
-    //     }
-    // }, [initial]);
-
-    const [complete, setComplete] = useState(false);
-
     // Add useRef to each <Thumbnail>
     const projectRefs = useRef([]);
     projectRefs.current = [];
@@ -72,29 +65,24 @@ const Home = () => {
         }
     };
 
-    // Animation controllers
+    // Animation controller
     useEffect(() => {
         if (status === "initial") {
             initial();
         }
-    }, [status]);
 
-    useEffect(() => {
         if (status === "spread") {
             spread();
         }
-    }, [status]);
 
-    useEffect(() => {
         if (status === "load") {
             load();
         }
-    }, [status]);
 
-    useEffect(() => {
-        return globalHistory.listen(({ action }) => {
-            if (action === "PUSH") setStatus("load");
-        });
+        if (status === "leave") {
+            leave();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status]);
 
     useEffect(() => {
@@ -128,6 +116,7 @@ const Home = () => {
             window.addEventListener("resize", handleResize);
             return () => window.removeEventListener("resize", handleResize);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const centre = () => {
@@ -153,24 +142,17 @@ const Home = () => {
         });
 
         timeline.set(projectRefs.current, {
-            scale: 1,
-            autoAlpha: 0,
+            scale: 2,
             x: (index, target) => {
                 let left = windowWidth / 2 - target.offsetWidth / 2;
                 return left;
             },
             y: (index, target) => {
-                let top = windowHeight / 2 - target.offsetHeight / 2;
+                let top = 0 - target.offsetHeight * 2;
                 return top;
             },
-            rotation: "random(-10, 10)",
+            // rotation: "random(-10, 10)",
             repeatRefresh: true,
-        });
-
-        timeline.to(projectRefs.current, {
-            autoAlpha: 1,
-            repeatRefresh: true,
-            stagger: 0.3,
         });
 
         timeline.to(projectRefs.current, {
@@ -188,7 +170,7 @@ const Home = () => {
             },
             rotation: "random(-10, 10)",
             repeatRefresh: true,
-            stagger: 0.3,
+            stagger: 0.25,
             delay: 0.5,
         });
     };
@@ -249,7 +231,7 @@ const Home = () => {
     };
 
     const position = () => {
-        setProperties([])
+        setProperties([]);
         for (const thumb of thumbnails) {
             const timeline = gsap.timeline({
                 onComplete: function () {
@@ -257,7 +239,6 @@ const Home = () => {
                         ...oldProperties,
                         { id: thumb.id, left: thumb.left, top: thumb.top },
                     ]);
-                    
                 },
             });
             timeline.to(thumb.element, {
@@ -268,36 +249,70 @@ const Home = () => {
             });
         }
         setStatus("complete");
-        // Set window size in storage
-        window.sessionStorage.setItem("window", JSON.stringify(windowSize));
+        setSize({ width: windowWidth, height: windowHeight });
     };
 
     const load = () => {
-        projectRefs.current.forEach((thumb) => {
-            const result = properties.find( ({ id }) => id === thumb.id );
-            gsap.set(thumb, {
-                autoAlpha: 0,
-                x: result.left,
-                y: result.top,
-                rotation: "random(-10, 10)",
-                scale: 0.2,
+        if (windowWidth === size.width && windowHeight === size.height) {
+            projectRefs.current.forEach((thumb) => {
+                const result = properties.find(({ id }) => id === thumb.id);
+                gsap.set(thumb, {
+                    autoAlpha: 0,
+                    x: result.left,
+                    y: result.top,
+                    rotation: "random(-10, 10)",
+                    scale: 0.2,
+                });
             });
-        });
+            gsap.to(projectRefs.current, {
+                duration: 1,
+                scale: 0.75,
+                autoAlpha: 1,
+                rotation: "random(-10, 10)",
+                stagger: 0.1,
+            });
+        } else {
+            gsap.set(projectRefs.current, {
+                autoAlpha: 1,
+                scale: 0.75,
+                rotation: "random(-10, 10)",
+                repeatRefresh: true,
+                x: (index, target) => {
+                    let left = window.innerWidth / 2 - target.offsetWidth / 2;
+                    return left;
+                },
+                y: (index, target) => {
+                    let top = window.innerHeight / 2 - target.offsetHeight / 2;
+                    return top;
+                },
+            });
+            spread();
+        }
+    };
 
-        const timeline = gsap.timeline({
-            // onComplete: function () {
-            //     setStatus("complete");
-            //     // Set window size in storage
-            //     window.sessionStorage.setItem("window", JSON.stringify(windowSize));
-            // },
-        });
-        timeline.to(projectRefs.current, {
-            duration: 1,
-            scale: 0.75,
-            autoAlpha: 1,
-            rotation: "random(-10, 10)",
-            stagger: 0.1,
-        });
+    const leave = () => {
+        if (clicked) {
+            const selected = projectRefs.current.find(({ id }) => id === clicked);
+            const notSelected = projectRefs.current.filter(({ id }) => id !== clicked);
+            const timeline = gsap.timeline();
+            timeline.to(notSelected, {
+                duration: 0.5,
+                scale: 0,
+                rotation: "random(-10, 10)",
+                stagger: 0.05,
+            });
+            timeline.to(selected, {
+                duration: 0.3,
+                scale: 0,
+            });
+        } else {
+            gsap.to(projectRefs.current, {
+                duration: 0.5,
+                scale: 0,
+                rotation: "random(-10, 10)",
+                stagger: 0.05,
+            });
+        }
     };
 
     return (
@@ -308,19 +323,45 @@ const Home = () => {
                 metabanner={seo.banner.asset.fixed}
             />
             <main className={style.main}>
-                {projects.map((project) => {
+                {projects.map((project, index) => {
                     return (
-                        <Thumbnail
-                            ref={addToRefs}
-                            key={project._id}
-                            id={project._id}
-                            title={project.title}
-                            date={project.date}
-                            status={status}
-                            slug={project.slug.current}
-                            tags={project.tags}
-                            thumb={project.thumbnail.asset.fluid}
-                        ></Thumbnail>
+                        <TransitionLink
+                            key={project._id + index}
+                            to={project.slug.current}
+                            leave={{
+                                opacity: 0,
+                                config: {
+                                    duration: 750,
+                                },
+                                onStart: () => {
+                                    setStatus("leave");
+                                    setClicked(project._id);
+                                },
+                                onRest: () => {
+                                    setStatus("load");
+                                },
+                            }}
+                            enter={{
+                                opacity: 0,
+                                config: {
+                                    duration: 500,
+                                },
+                            }}
+                            usual={{
+                                transform: 0,
+                            }}
+                            mode="successive"
+                        >
+                            <Thumbnail
+                                ref={addToRefs}
+                                id={project._id}
+                                title={project.title}
+                                date={project.date}
+                                status={status}
+                                tags={project.tags}
+                                thumb={project.thumbnail.asset.fluid}
+                            ></Thumbnail>
+                        </TransitionLink>
                     );
                 })}
                 <Footer />

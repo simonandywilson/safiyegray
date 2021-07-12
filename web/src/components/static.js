@@ -5,67 +5,8 @@ import Header from "./header";
 
 const Static = () => {
     // Get data
-    const { sanitySettings: settings, allSanityProject: totalCount } = useStaticQuery(getData);
+    const { allSanityProject: totalCount } = useStaticQuery(getData);
     const hasWindow = typeof window !== "undefined";
-
-    // Set colours
-    useEffect(() => {
-        const cursor = settings.cursor.rgb;
-        const highlight = settings.highlight.rgb;
-        const illustration = settings.illustration.rgb;
-        const print = settings.print.rgb;
-        const exhibition = settings.exhibition.rgb;
-        const publication = settings.publication.rgb;
-
-        document.documentElement.style.setProperty(
-            "--cursor-colour",
-            `rgba(${cursor.r}, ${cursor.g}, ${cursor.b}, ${cursor.a})`
-        );
-        document.documentElement.style.setProperty(
-            "--highlight-colour",
-            `rgba(${highlight.r}, ${highlight.g}, ${highlight.b}, ${highlight.a})`
-        );
-        document.documentElement.style.setProperty(
-            "--illustration-colour",
-            `rgba(${illustration.r}, ${illustration.g}, ${illustration.b}, ${illustration.a})`
-        );
-        document.documentElement.style.setProperty(
-            "--print-colour",
-            `rgba(${print.r}, ${print.g}, ${print.b}, ${print.a})`
-        );
-        document.documentElement.style.setProperty(
-            "--exhibition-colour",
-            `rgba(${exhibition.r}, ${exhibition.g}, ${exhibition.b}, ${exhibition.a})`
-        );
-        document.documentElement.style.setProperty(
-            "--publication-colour",
-            `rgba(${publication.r}, ${publication.g}, ${publication.b}, ${publication.a})`
-        );
-    }, []);
-
-    // Set size of thumbnails
-    // useEffect(() => {
-    //     if (hasWindow) {
-    //         const resizer = () => {
-    //             console.log("resized");
-    //             const [height, width] = sizer(
-    //                 window.innerWidth,
-    //                 window.innerHeight,
-    //                 totalCount.totalCount
-    //             );
-    //             document.documentElement.style.setProperty(
-    //                 "--thumbnail-height",
-    //                 `${Math.round(height)}px`
-    //             );
-    //             document.documentElement.style.setProperty(
-    //                 "--thumbnail-width",
-    //                 `${Math.round(width)}px`
-    //             );
-    //         };
-    //         window.addEventListener("resize", resizer());
-    //         return () => window.removeEventListener("resize", resizer());
-    //     }
-    // }, []);
 
     const setThumbSize = useCallback(() => {
         if (hasWindow) {
@@ -83,10 +24,8 @@ const Static = () => {
                 `${Math.round(width)}px`
             );
         }
-        
-    }, []);
-
-    setThumbSize()
+    }, [hasWindow, totalCount.totalCount]);
+    setThumbSize();
 
     useEffect(() => {
         if (hasWindow) {
@@ -96,7 +35,7 @@ const Static = () => {
                 window.removeEventListener("resize", setThumbSize);
             };
         }
-    }, [setThumbSize]);
+    }, [setThumbSize, hasWindow]);
 
     return (
         <>
@@ -112,56 +51,6 @@ const getData = graphql`
     {
         allSanityProject {
             totalCount
-        }
-        sanitySettings {
-            cursor {
-                rgb {
-                    r
-                    g
-                    b
-                    a
-                }
-            }
-            highlight {
-                rgb {
-                    r
-                    g
-                    b
-                    a
-                }
-            }
-            illustration {
-                rgb {
-                    r
-                    g
-                    b
-                    a
-                }
-            }
-            publication {
-                rgb {
-                    r
-                    g
-                    b
-                    a
-                }
-            }
-            print {
-                rgb {
-                    r
-                    g
-                    b
-                    a
-                }
-            }
-            exhibition {
-                rgb {
-                    r
-                    g
-                    b
-                    a
-                }
-            }
         }
     }
 `;

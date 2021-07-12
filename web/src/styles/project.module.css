@@ -3,7 +3,6 @@
     height: 100vh;
     width: 100%;
     overflow: hidden;
-    /* background: rgb(184, 188, 224); */
 }
 
 .main > div {
@@ -38,14 +37,12 @@
 .text {
     width: 50%;
     max-width: 500px;
+    z-index: 99;
 }
 
 .image {
     transition: transform 0.3s;
-}
-
-.image:hover {
-    transform: scale(1.025);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
 .s {

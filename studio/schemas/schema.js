@@ -14,7 +14,6 @@ import cv from "./objects/about/cv";
 import categories from "./objects/about/categories";
 import category from "./objects/about/category";
 
-import settings from "./documents/settings";
 import seo from "./documents/seo";
 
 export default createSchema({
@@ -32,8 +31,6 @@ export default createSchema({
         cv,
         categories,
         category,
-
-        settings,
 
         seo,
     ]),

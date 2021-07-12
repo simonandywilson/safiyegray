@@ -3,15 +3,31 @@
     width: var(--thumbnail-width);
     height: auto;
     margin: 0;
-    visibility: hidden;
     will-change: transform;
     cursor: none;
 }
 
-.figcaption {
-    padding-top: var(--padding);
-    text-align: center;
-    transform: scale(1.25);
+.thumbnailContainer {
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.thumbnailContainer::after {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background: 0 8px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    z-index: -1;
+    transition: opacity 0.15s ease-in-out;
+}
+
+.thumbnail:hover > .thumbnailContainer::after {
+    opacity: 1;
 }
 
 .tagsContainer {

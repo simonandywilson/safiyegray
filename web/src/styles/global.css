@@ -3,13 +3,13 @@ Variables
 ----------------------------------------*/
 
 :root {
-    --header-layout: 1fr 1fr;
+    --nav-layout: 1fr 1fr;
 
     --padding: 1.1rem;
 
     --font-family: suisse;
     --font-family-italic: suisse_italic;
-    --font-size: 2rem;
+    --font-size: 2.5rem;
     --font-size-medium: 1.2rem;
     --font-size-small: 0.9rem;
     --arrow-size: 0.4rem;
@@ -21,12 +21,14 @@ Variables
 
     --description-width: 40%;
 
-    --cursor-colour: rgba(0, 0, 0, 0);
-    --highlight-colour: rgba(0, 0, 0, 0);
-    --illustration-colour: rgba(0, 0, 0, 0);
-    --print-colour: rgba(0, 0, 0, 0);
-    --exhibition-colour: rgba(0, 0, 0, 0);
-    --publication-colour: rgba(0, 0, 0, 0);
+    --background-colour: #DEE8F6;
+    --cursor-colour:#ff0000;
+    --highlight-colour: #ff0000;
+    --title-colour: #D63AF9;
+    --illustration-colour: #004FFF;
+    --print-colour: #FFFF00;
+    --exhibition-colour: #4C1A57;
+    --publication-colour: #8FE388;
 }
 
 /*----------------------------------------
@@ -40,30 +42,19 @@ Main
 html body {
     position: absolute;
     width: 100vw;
-    min-height: 100vh;
-    min-height: -webkit-fill-available;
+    height: 100vh;
     margin: 0;
     padding: 0;
     font-family: var(--font-family);
     font-size: var(--font-size);
     line-height: var(--line-height);
+    background: var(--background-colour);
     cursor: none;
 }
 
 /*----------------------------------------
 Typography
 ----------------------------------------*/
-
-@font-face {
-    font-family: "bradford";
-    src: url("../fonts/bradford/bradford_regular.otf") format("opentype");
-}
-
-@font-face {
-    font-family: "bradford_italic";
-    src: url("../fonts/bradford/bradford_italic.otf") format("opentype");
-}
-
 
 @font-face {
     font-family: "suisse";
@@ -75,9 +66,11 @@ Typography
     src: url("../fonts/suisse/SuisseIntl-RegularItalic.otf") format("opentype");
 }
 
-
 a {
-    color: #000000;
+    width: max-content;
+    height: max-content;
+    color: var(--title-colour);
+    font-family: var(--font-family-italic);
     text-decoration: none;
     text-underline-offset: 1px;
     cursor: none;
@@ -85,5 +78,9 @@ a {
 
 a:visited,
 a:active {
-    color: #000000;
+    color: var(--title-colour);
+}
+
+svg {
+    pointer-events: none;
 }

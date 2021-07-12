@@ -2,7 +2,6 @@ import S from "@sanity/desk-tool/structure-builder";
 import { BiCube } from "react-icons/bi";
 import { BiUser } from "react-icons/bi";
 import { BiPalette } from "react-icons/bi";
-import { BiColorFill } from "react-icons/bi";
 import { BiGlobe } from "react-icons/bi";
 
 export default () =>
@@ -27,12 +26,6 @@ export default () =>
                         .documentId("sketchbook")
                 ),
             S.divider(),
-            S.listItem()
-                .title("Settings")
-                .icon(BiColorFill)
-                .child(
-                    S.document().title("Settings").schemaType("settings").documentId("settings")
-                ),
             S.listItem()
                 .title("SEO")
                 .icon(BiGlobe)

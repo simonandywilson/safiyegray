@@ -9,6 +9,6 @@
     width: var(--dot-size);
     height: var(--dot-size);
     background: var(--cursor-colour);
-    z-index: 99;
+    z-index: 999;
     visibility: hidden;
 }
