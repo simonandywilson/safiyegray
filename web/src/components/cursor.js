@@ -8,14 +8,9 @@ const Cursor = () => {
 
     useEffect(() => {
         document.addEventListener("mousemove", move);
-        console.log();
 
         function move(e) {
-            console.log(e.target.tagName);
-        
-
             const { clientX, clientY } = e;
-
             const cursorX = clientX - cursorRef.current.clientWidth / 2;
             const cursorY = clientY - cursorRef.current.clientHeight / 2;
 

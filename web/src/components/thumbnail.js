@@ -5,6 +5,7 @@ import style from "../styles/thumbnail.module.css";
 import gsap from "gsap";
 import { usePropertiesContext, useTitleUpdateContext, useDateUpdateContext } from "../state/store";
 import Tag from "../components/tag";
+import { isMobile } from "react-device-detect";
 
 const Thumbnail = React.forwardRef((props, ref) => {
     const {
@@ -129,7 +130,7 @@ const Thumbnail = React.forwardRef((props, ref) => {
                 },
             });
         }
-    }, [offset, active]);
+    }, [offset, active, hover]);
 
     // Recentre thumbnails
     useEffect(() => {
@@ -159,8 +160,10 @@ const Thumbnail = React.forwardRef((props, ref) => {
     }
 
     function setHeadings() {
-        setTitle(props.title);
-        setDate(props.date);
+        if (!isMobile) {
+            setTitle(props.title);
+            setDate(props.date);
+        }
     }
 
     return (

@@ -40,29 +40,30 @@ const Misc = ({ data }) => {
                 }}
                 mode="immediate"
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="46.65"
-                    height="26.68"
-                    viewBox="0 0 46.65 26.68"
-                    stroke="var(--title-colour)"
-                >
-                    <polyline
-                        points="14.75 25.26 2.83 13.34 14.75 1.41"
-                        fill="none"
-                        strokeMiterlimit="10"
-                        strokeWidth="4"
-                    />
-                    <line
-                        x1="2.83"
-                        y1="13.34"
-                        x2="46.65"
-                        y2="13.34"
-                        fill="none"
-                        strokeMiterlimit="10"
-                        strokeWidth="4"
-                    />
-                </svg>
+                <span className={style.svg} data-tag={"link"}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="46.65"
+                        height="26.68"
+                        viewBox="0 0 46.65 26.68"
+                    >
+                        <polyline
+                            points="14.75 25.26 2.83 13.34 14.75 1.41"
+                            fill="none"
+                            strokeMiterlimit="10"
+                            strokeWidth="4"
+                        />
+                        <line
+                            x1="2.83"
+                            y1="13.34"
+                            x2="46.65"
+                            y2="13.34"
+                            fill="none"
+                            strokeMiterlimit="10"
+                            strokeWidth="4"
+                        />
+                    </svg>
+                </span>
             </TransitionLink>
         );
         setTitle("");
@@ -72,9 +73,9 @@ const Misc = ({ data }) => {
     return (
         <>
             <SEO
-                metatitle={sketchbook.title}
-                metadescription={sketchbook.meta}
-                metabanner={sketchbook.images[0].asset.fluid}
+                title={sketchbook.title}
+                description={sketchbook.meta}
+                banner={sketchbook.images[0].asset.fluid.src}
             />
             <main className={style.main}>
                 <Slider>

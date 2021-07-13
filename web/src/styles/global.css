@@ -1,34 +1,114 @@
 /*----------------------------------------
+Breakpoints
+----------------------------------------*/
+/* Tiny Screen */
+@media only screen and (max-width: 349px) {
+    :root {
+        --font-size: 1.9rem;
+        --font-size-medium: 1rem;
+        --font-size-small: 0.85rem;
+        --description-width: 90%;
+
+        --padding: 15px;
+        --nav-columns: 1fr 1fr;
+        --column-gap: 40px;
+        --dot-size: 15px;
+
+        --cv-left-position: relative;
+        --cv-left-height: 100%;
+        --cv-left-width: 100%;
+        --cv-right-width: 100%;
+        --cv-right-offset: 60%;
+        --cv-right-padding: calc(var(--padding) * 1);
+        --cv-image-width: 80%;
+    }
+}
+
+/* Small Screen */
+@media only screen and (min-width: 350px) {
+    :root {
+        --font-size: 2.2rem;
+        --font-size-medium: 1rem;
+        --font-size-small: 0.85rem;
+        --description-width: 90%;
+
+        --padding: 15px;
+        --nav-columns: 1fr 1fr;
+        --column-gap: 40px;
+        --dot-size: 15px;
+
+        --cv-left-position: relative;
+        --cv-left-height: 100%;
+        --cv-left-width: 100%;
+        --cv-right-width: 100%;
+        --cv-right-offset: 60%;
+        --cv-right-padding: calc(var(--padding) * 1);
+        --cv-image-width: 80%;
+    }
+}
+
+/* Medium Screen */
+@media only screen and (min-width: 400px) {
+    :root {
+        --font-size: 2.5rem;
+        --font-size-medium: 1.2rem;
+        --font-size-small: 0.9rem;
+        --description-width: 75%;
+
+        --padding: 20px;
+        --nav-columns: 1fr 1fr;
+        --column-gap: 40px;
+        --dot-size: 25px;
+
+        --cv-left-position: fixed;
+        --cv-left-height: 100%;
+        --cv-left-width: 50%;
+        --cv-right-width: 50%;
+        --cv-right-offset: calc(var(--padding) * 4);
+        --cv-right-padding: calc(var(--padding) * 4);
+        --cv-image-width: 80%;
+    }
+}
+
+/* Large Screen */
+@media only screen and (min-width: 800px) {
+    :root {
+        --font-size: 2.5rem;
+        --font-size-medium: 1.2rem;
+        --font-size-small: 0.9rem;
+        --description-width: 50%;
+
+        --padding: 20px;
+        --nav-columns: 1fr 1fr;
+        --column-gap: 40px;
+        --dot-size: 25px;
+
+        --cv-left-position: fixed;
+        --cv-left-height: 100%;
+        --cv-left-width: 50%;
+        --cv-right-width: 50%;
+        --cv-right-offset: calc(var(--padding) * 4);
+        --cv-right-padding: calc(var(--padding) * 4);
+        --cv-image-width: 80%;
+    }
+}
+
+/*----------------------------------------
 Variables
 ----------------------------------------*/
 
 :root {
-    --nav-layout: 1fr 1fr;
-
-    --padding: 1.1rem;
-
     --font-family: suisse;
-    --font-family-italic: suisse_italic;
-    --font-size: 2.5rem;
-    --font-size-medium: 1.2rem;
-    --font-size-small: 0.9rem;
-    --arrow-size: 0.4rem;
     --line-height: 120%;
 
-    --column-gap: 40px;
-
-    --dot-size: 25px;
-
-    --description-width: 40%;
-
-    --background-colour: #DEE8F6;
-    --cursor-colour:#ff0000;
+    --background-colour: #dee8f6;
+    --cursor-colour: #ff0000;
     --highlight-colour: #ff0000;
-    --title-colour: #D63AF9;
-    --illustration-colour: #004FFF;
-    --print-colour: #FFFF00;
-    --exhibition-colour: #4C1A57;
-    --publication-colour: #8FE388;
+    --title-colour: #d63af9;
+    --illustration-colour: #DEE8F6;
+    --print-colour: #C0E1BD;
+    --exhibition-colour: #966A42;
+    --publication-colour: #0D5BC9;
 }
 
 /*----------------------------------------
@@ -37,6 +117,7 @@ Main
 
 * {
     box-sizing: border-box;
+    cursor: none;
 }
 
 html body {
@@ -49,7 +130,6 @@ html body {
     font-size: var(--font-size);
     line-height: var(--line-height);
     background: var(--background-colour);
-    cursor: none;
 }
 
 /*----------------------------------------
@@ -61,26 +141,23 @@ Typography
     src: url("../fonts/suisse/SuisseIntl-Regular.otf") format("opentype");
 }
 
-@font-face {
-    font-family: "suisse_italic";
-    src: url("../fonts/suisse/SuisseIntl-RegularItalic.otf") format("opentype");
-}
-
 a {
     width: max-content;
     height: max-content;
     color: var(--title-colour);
-    font-family: var(--font-family-italic);
     text-decoration: none;
     text-underline-offset: 1px;
     cursor: none;
 }
 
-a:visited,
-a:active {
+a:visited {
     color: var(--title-colour);
 }
 
-svg {
-    pointer-events: none;
+a:hover {
+    color: var(--highlight-colour);
+}
+
+a:active {
+    color: var(--title-colour);
 }

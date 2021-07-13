@@ -18,8 +18,8 @@ const Slider = (props) => {
             breakpoints={{
                 // when window width is more than 0px
                 0: {
-                    spaceBetween: 100,
-                    slidesPerView: 2,
+                    spaceBetween: 50,
+                    slidesPerView: 1.5,
                     // slidesOffsetBefore: 50,
                     // slidesOffsetAfter: 50,
                 },
@@ -31,8 +31,8 @@ const Slider = (props) => {
                     // slidesOffsetAfter: 100,
                 },
                 // when window width is more than 768px
-                768: {
-                    spaceBetween: 100,
+                800: {
+                    spaceBetween: 75,
                     slidesPerView: 3,
                     // slidesOffsetBefore: 200,
                     // slidesOffsetAfter: 200,

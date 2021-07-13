@@ -8,32 +8,38 @@ const SEO = (props) => {
         site: {
             siteMetadata: { siteUrl },
         },
+        sanitySeo: { defaultTitle, defaultDescription, defaultImage },
     } = useStaticQuery(getData);
-
     const { pathname } = useLocation();
-    let url = `${siteUrl}${pathname}`;
+
+    const seo = {
+        title: props.title || defaultTitle,
+        description: props.description || defaultDescription,
+        image: props.image || defaultImage.asset.url,
+        url: `${siteUrl}${pathname}`,
+    };
 
     return (
-        <Helmet>
+        <Helmet
+            title={props.title}
+            titleTemplate={`%s · ${defaultTitle}`}
+            defaultTitle={defaultTitle}
+        >
             <html lang="en" />
-            {/* Primary Meta Tags */}
-            <title>{props.metatitle}</title>
-            <meta name="title" content={props.metatitle} />
-            <meta name="description" content={props.metadescription} />
+            {seo.title && <meta name="title" content={seo.title} />}
+            {seo.description && <meta name="description" content={seo.description} />}
 
-            {/* Open Graph / Facebook */}
             <meta property="og:type" content="website" />
-            <meta property="og:url" content={url} />
-            <meta property="og:title" content={props.metatitle} />
-            <meta property="og:description" content={props.metadescription} />
-            <meta property="og:image" content={props.metaimage} />
+            {seo.url && <meta property="og:url" content={seo.url} />}
+            {seo.title && <meta property="og:title" content={seo.title} />}
+            {seo.description && <meta property="og:description" content={seo.description} />}
+            {seo.image && <meta property="og:image" content={seo.image} />}
 
-            {/* Twitter */}
             <meta property="twitter:card" content="summary_large_image" />
-            <meta property="twitter:url" content={url} />
-            <meta property="twitter:title" content={props.metatitle} />
-            <meta property="twitter:description" content={props.metadescription} />
-            <meta property="twitter:image" content={props.metaimage}></meta>
+            {seo.url && <meta property="twitter:url" content={seo.url} />}
+            {seo.title && <meta property="twitter:title" content={seo.title} />}
+            {seo.description && <meta property="twitter:description" content={seo.description} />}
+            {seo.image && <meta property="twitter:image" content={seo.image} />}
         </Helmet>
     );
 };
@@ -45,6 +51,15 @@ const getData = graphql`
         site {
             siteMetadata {
                 siteUrl
+            }
+        }
+        sanitySeo {
+            defaultTitle: title
+            defaultDescription: description
+            defaultImage: banner {
+                asset {
+                    url
+                }
             }
         }
     }

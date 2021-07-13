@@ -35,9 +35,13 @@
 }
 
 .text {
-    width: 50%;
+    width: var(--description-width);
     max-width: 500px;
     z-index: 99;
+}
+
+.text > p {
+    margin: 0;
 }
 
 .image {
@@ -67,4 +71,21 @@
     z-index: -99;
     pointer-events: none;
     display: none;
+}
+
+.svg {
+    height: max-content;
+    width: max-content;
+    display: inline-block;
+}
+
+.svg > svg {
+    max-height: 100%;
+    max-width: 100%;
+    stroke: var(--title-colour);
+    pointer-events: none;
+}
+
+.svg:hover > svg {
+    stroke: var(--highlight-colour);
 }

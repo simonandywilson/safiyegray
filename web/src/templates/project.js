@@ -47,29 +47,30 @@ const Project = ({ data }) => {
                 }}
                 mode="immediate"
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="46.65"
-                    height="26.68"
-                    viewBox="0 0 46.65 26.68"
-                    stroke="var(--title-colour)"
-                >
-                    <polyline
-                        points="14.75 25.26 2.83 13.34 14.75 1.41"
-                        fill="none"
-                        strokeMiterlimit="10"
-                        strokeWidth="4"
-                    />
-                    <line
-                        x1="2.83"
-                        y1="13.34"
-                        x2="46.65"
-                        y2="13.34"
-                        fill="none"
-                        strokeMiterlimit="10"
-                        strokeWidth="4"
-                    />
-                </svg>
+                <span className={style.svg} data-tag={"link"}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="46.65"
+                        height="26.68"
+                        viewBox="0 0 46.65 26.68"
+                    >
+                        <polyline
+                            points="14.75 25.26 2.83 13.34 14.75 1.41"
+                            fill="none"
+                            strokeMiterlimit="10"
+                            strokeWidth="4"
+                        />
+                        <line
+                            x1="2.83"
+                            y1="13.34"
+                            x2="46.65"
+                            y2="13.34"
+                            fill="none"
+                            strokeMiterlimit="10"
+                            strokeWidth="4"
+                        />
+                    </svg>
+                </span>
             </TransitionLink>
         );
         setTitle(project.title);
@@ -115,9 +116,9 @@ const Project = ({ data }) => {
     return (
         <>
             <SEO
-                metatitle={project.title}
-                metadescription={project.meta}
-                metabanner={project.thumbnail.asset.fixed}
+                title={project.title}
+                description={project.meta}
+                banner={project.thumbnail.asset.fixed.src}
             />
             <div className={style.tagsContainer}>
                 {project.tags.map((tag, index) => {

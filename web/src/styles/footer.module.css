@@ -5,7 +5,8 @@
     bottom: 0;
     z-index: 99;
     display: grid;
-    grid-template-columns: var(--nav-layout);
+    grid-template-columns: var(--nav-columns);
+    text-transform: uppercase;
 }
 
 .left {
@@ -15,13 +16,4 @@
 .right {
     justify-self: flex-end;
     width: max-content;
-}
-
-.left > a, .right > a {
-    color: var(--title-colour);
-    text-transform: uppercase;
-}
-
-.italics {
-    font-family: var(--font-family-italic);
 }

@@ -4,16 +4,23 @@
     margin: var(--padding);
     z-index: 99;
     display: grid;
-    grid-template-columns: var(--nav-layout);
+    grid-template-columns: var(--nav-columns);
+    user-select: none;
+}
+
+.left {
+    margin-right: var(--padding);
+    width: max-content;
 }
 
 .left, .right {
     color: var(--title-colour);
     text-transform: uppercase;
-    width: max-content;
+    max-width: 100%;
 }
 
 .right {
     justify-self: flex-end;
     color: var(--highlight-colour);
+    text-align: right;
 }

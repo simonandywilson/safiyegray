@@ -36,29 +36,30 @@ const CV = () => {
                 }}
                 mode="immediate"
             >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="46.65"
-                    height="26.68"
-                    viewBox="0 0 46.65 26.68"
-                    stroke="var(--title-colour)"
-                >
-                    <polyline
-                        points="14.75 25.26 2.83 13.34 14.75 1.41"
-                        fill="none"
-                        strokeMiterlimit="10"
-                        strokeWidth="4"
-                    />
-                    <line
-                        x1="2.83"
-                        y1="13.34"
-                        x2="46.65"
-                        y2="13.34"
-                        fill="none"
-                        strokeMiterlimit="10"
-                        strokeWidth="4"
-                    />
-                </svg>
+                <span className={style.svg} data-tag={"link"}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="46.65"
+                        height="26.68"
+                        viewBox="0 0 46.65 26.68"
+                    >
+                        <polyline
+                            points="14.75 25.26 2.83 13.34 14.75 1.41"
+                            fill="none"
+                            strokeMiterlimit="10"
+                            strokeWidth="4"
+                        />
+                        <line
+                            x1="2.83"
+                            y1="13.34"
+                            x2="46.65"
+                            y2="13.34"
+                            fill="none"
+                            strokeMiterlimit="10"
+                            strokeWidth="4"
+                        />
+                    </svg>
+                </span>
             </TransitionLink>
         );
         setTitle("")
@@ -76,9 +77,9 @@ const CV = () => {
     return (
         <>
             <SEO
-                metatitle={about.title}
-                metadescription={about.meta}
-                metabanner={about.portrait.asset.fluid.src}
+                title={about.title}
+                description={about.meta}
+                banner={about.portrait.asset.fluid.src}
             />
             <main className={style.main}>
                 <div className={style.left}>

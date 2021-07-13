@@ -20,7 +20,7 @@ import {
     useDateUpdateContext,
 } from "../state/store";
 
-let padding = 20;
+let padding = 30;
 
 const Home = () => {
     // Get data
@@ -189,8 +189,8 @@ const Home = () => {
                 element: thumb,
                 id: thumb.id,
                 placed: false,
-                width: properties.width,
-                height: properties.height,
+                width: properties.width * 0.75,
+                height: properties.height * 0.75,
                 left: 0,
                 top: 0,
                 right: properties.width,
@@ -318,9 +318,8 @@ const Home = () => {
     return (
         <>
             <SEO
-                metatitle={seo.title}
-                metadescription={seo.description}
-                metabanner={seo.banner.asset.fixed}
+                description={seo.description}
+                banner={seo.banner.asset.fixed.src}
             />
             <main className={style.main}>
                 {projects.map((project, index) => {
