@@ -7,10 +7,10 @@
     cursor: none;
 }
 
-.thumbnailContainer {
+/* .thumbnailContainer {
     background: rgba(0, 0, 0, 0.1);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
+} */
 
 .thumbnailContainer::after {
     content: "";
@@ -20,8 +20,8 @@
     top: 0;
     left: 0;
     opacity: 0;
-    background: 0 8px 15px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    background: 0 8px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     z-index: -1;
     transition: opacity 0.15s ease-in-out;
 }

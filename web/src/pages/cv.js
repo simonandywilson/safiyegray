@@ -88,6 +88,7 @@ const CV = () => {
                             fluid={{
                                 ...about.portrait.asset.fluid,
                                 aspectRatio: 0.7,
+                                objectFit: "contain"
                             }}
                             durationFadeIn={1000}
                         />

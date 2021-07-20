@@ -64,7 +64,7 @@ Breakpoints
         --cv-left-height: 100%;
         --cv-left-width: 50%;
         --cv-right-width: 50%;
-        --cv-right-offset: calc(var(--padding) * 4);
+        --cv-right-offset: calc(var(--padding) * 8);
         --cv-right-padding: calc(var(--padding) * 4);
         --cv-image-width: 80%;
     }
@@ -84,7 +84,7 @@ Breakpoints
         --dot-size: 25px;
 
         --cv-left-position: fixed;
-        --cv-left-height: 100%;
+        --cv-left-height: calc(100% - (var(--padding) * 5));
         --cv-left-width: 50%;
         --cv-right-width: 50%;
         --cv-right-offset: calc(var(--padding) * 4);
@@ -98,17 +98,17 @@ Variables
 ----------------------------------------*/
 
 :root {
-    --font-family: suisse;
+    --font-family: suisse-regular;
     --line-height: 120%;
 
-    --background-colour: #dee8f6;
+    --background-colour: #ffffff;
     --cursor-colour: #ff0000;
     --highlight-colour: #ff0000;
     --title-colour: #d63af9;
-    --illustration-colour: #DEE8F6;
-    --print-colour: #C0E1BD;
-    --exhibition-colour: #966A42;
-    --publication-colour: #0D5BC9;
+    --illustration-colour: #dee8f6;
+    --print-colour: #c0e1bd;
+    --exhibition-colour: #966a42;
+    --publication-colour: #0d5bc9;
 }
 
 /*----------------------------------------
@@ -137,8 +137,9 @@ Typography
 ----------------------------------------*/
 
 @font-face {
-    font-family: "suisse";
-    src: url("../fonts/suisse/SuisseIntl-Regular.otf") format("opentype");
+    font-family: "suisse-regular";
+    src: url("../fonts/suisse-regular.woff2") format("woff2"),
+        url("../fonts/suisse-regular.woff") format("woff");
 }
 
 a {
@@ -154,8 +155,10 @@ a:visited {
     color: var(--title-colour);
 }
 
-a:hover {
-    color: var(--highlight-colour);
+@media (hover: hover) and (pointer: fine) {
+    a:hover {
+        color: var(--highlight-colour);
+    }
 }
 
 a:active {

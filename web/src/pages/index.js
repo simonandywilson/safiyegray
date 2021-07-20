@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useStaticQuery, graphql } from "gatsby";
 import style from "../styles/index.module.css";
 import gsap from "gsap";
@@ -39,8 +39,6 @@ const Home = () => {
     const setName = useNameUpdateContext();
     const setTitle = useTitleUpdateContext();
     const setDate = useDateUpdateContext();
-
-    const [clicked, setClicked] = useState(null);
 
     // Window size
     const hasWindow = typeof window !== "undefined";
@@ -142,21 +140,23 @@ const Home = () => {
         });
 
         timeline.set(projectRefs.current, {
-            scale: 2,
+            scale: 1.5,
             x: (index, target) => {
                 let left = windowWidth / 2 - target.offsetWidth / 2;
-                return left;
+                let randomX = left + random(-30, 30);
+                return randomX;
             },
             y: (index, target) => {
-                let top = 0 - target.offsetHeight * 2;
-                return top;
+                let top = windowHeight / 2 - target.offsetHeight / 2;
+                let randomY = top + random(-30, 30);
+                return randomY;
             },
-            // rotation: "random(-10, 10)",
+            rotation: "random(-10, 10)",
             repeatRefresh: true,
         });
 
         timeline.to(projectRefs.current, {
-            duration: 1,
+            duration: 1.5,
             scale: 0.75,
             x: (index, target) => {
                 let left = windowWidth / 2 - target.offsetWidth / 2;
@@ -170,7 +170,7 @@ const Home = () => {
             },
             rotation: "random(-10, 10)",
             repeatRefresh: true,
-            stagger: 0.25,
+            stagger: 0.1,
             delay: 0.5,
         });
     };
@@ -291,36 +291,17 @@ const Home = () => {
     };
 
     const leave = () => {
-        if (clicked) {
-            const selected = projectRefs.current.find(({ id }) => id === clicked);
-            const notSelected = projectRefs.current.filter(({ id }) => id !== clicked);
-            const timeline = gsap.timeline();
-            timeline.to(notSelected, {
-                duration: 0.5,
-                scale: 0,
-                rotation: "random(-10, 10)",
-                stagger: 0.05,
-            });
-            timeline.to(selected, {
-                duration: 0.3,
-                scale: 0,
-            });
-        } else {
-            gsap.to(projectRefs.current, {
-                duration: 0.5,
-                scale: 0,
-                rotation: "random(-10, 10)",
-                stagger: 0.05,
-            });
-        }
+        gsap.to(projectRefs.current, {
+            duration: 0.5,
+            scale: 0,
+            rotation: "random(-10, 10)",
+            stagger: 0.05,
+        });
     };
 
     return (
         <>
-            <SEO
-                description={seo.description}
-                banner={seo.banner.asset.fixed.src}
-            />
+            <SEO description={seo.description} banner={seo.banner.asset.fixed.src} />
             <main className={style.main}>
                 {projects.map((project, index) => {
                     return (
@@ -334,7 +315,6 @@ const Home = () => {
                                 },
                                 onStart: () => {
                                     setStatus("leave");
-                                    setClicked(project._id);
                                 },
                                 onRest: () => {
                                     setStatus("load");

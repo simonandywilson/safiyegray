@@ -11,6 +11,7 @@
 .left {
     margin-right: var(--padding);
     width: max-content;
+    white-space: nowrap;
 }
 
 .left, .right {
