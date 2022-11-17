@@ -12,121 +12,123 @@ import Slider from "../components/slider";
 import { TransitionLink } from "gatsby-plugin-transitions";
 
 const Misc = ({ data }) => {
-    const sketchbook = data.sanitySketchbook;
+	const sketchbook = data.sanitySketchbook;
 
-    // Set header info
-    const setName = useNameUpdateContext();
-    const setTitle = useTitleUpdateContext();
-    const setDate = useDateUpdateContext();
-    useEffect(() => {
-        setName(
-            <TransitionLink
-                data-tag={"link"}
-                to={"/"}
-                leave={{
-                    opacity: 0,
-                    config: {
-                        duration: 500,
-                    },
-                }}
-                enter={{
-                    opacity: 0,
-                    config: {
-                        duration: 500,
-                    },
-                }}
-                usual={{
-                    opacity: 1,
-                }}
-                mode="immediate"
-            >
-                <span className={style.svg} data-tag={"link"}>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="46.65"
-                        height="26.68"
-                        viewBox="0 0 46.65 26.68"
-                    >
-                        <polyline
-                            points="14.75 25.26 2.83 13.34 14.75 1.41"
-                            fill="none"
-                            strokeMiterlimit="10"
-                            strokeWidth="4"
-                        />
-                        <line
-                            x1="2.83"
-                            y1="13.34"
-                            x2="46.65"
-                            y2="13.34"
-                            fill="none"
-                            strokeMiterlimit="10"
-                            strokeWidth="4"
-                        />
-                    </svg>
-                </span>
-            </TransitionLink>
-        );
-        setTitle("");
-        setDate("");
-    }, [setName, setTitle, setDate]);
+	// Set header info
+	const setName = useNameUpdateContext();
+	const setTitle = useTitleUpdateContext();
+	const setDate = useDateUpdateContext();
+	useEffect(() => {
+		setName(
+			<TransitionLink
+				data-tag={"link"}
+				to={"/"}
+				leave={{
+					opacity: 0,
+					config: {
+						duration: 500,
+					},
+				}}
+				enter={{
+					opacity: 0,
+					config: {
+						duration: 500,
+					},
+				}}
+				usual={{
+					opacity: 1,
+				}}
+				mode="immediate"
+			>
+				<span className={style.svg} data-tag={"link"}>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="46.65"
+						height="26.68"
+						viewBox="0 0 46.65 26.68"
+					>
+						<polyline
+							points="14.75 25.26 2.83 13.34 14.75 1.41"
+							fill="none"
+							strokeMiterlimit="10"
+							strokeWidth="4"
+						/>
+						<line
+							x1="2.83"
+							y1="13.34"
+							x2="46.65"
+							y2="13.34"
+							fill="none"
+							strokeMiterlimit="10"
+							strokeWidth="4"
+						/>
+					</svg>
+				</span>
+			</TransitionLink>
+		);
+		setTitle("");
+		setDate("");
+	}, [setName, setTitle, setDate]);
 
-    return (
-        <>
-            <SEO
-                title={sketchbook.title}
-                description={sketchbook.meta}
-                banner={sketchbook.images[0].asset.fluid.src}
-            />
-            <main className={style.main}>
-                <Slider>
-                    {sketchbook.images.map((image) => {
-                        return (
-                            <SwiperSlide key={image._key}>
-                                <Slide
-                                    size={image.size}
-                                    rotate={image.rotate}
-                                    alt={image.alt}
-                                    image={image.asset.fluid}
-                                    aspectRatio={image.asset.fluid.aspectRatio}
-                                />
-                            </SwiperSlide>
-                        );
-                    })}
-                </Slider>
-                <footer className={style.footer}>
-                    {sketchbook.description && (
-                        <PortableText
-                            className={style.text}
-                            blocks={sketchbook.description}
-                            renderContainerOnSingleChild={true}
-                        />
-                    )}
-                </footer>
-            </main>
-        </>
-    );
+	return (
+		<>
+			<SEO
+				title={sketchbook.title}
+				description={sketchbook.meta}
+				banner={sketchbook.images[0].asset.fluid.src}
+			/>
+			<main className={style.main}>
+				<Slider>
+					{sketchbook.images.map((image) => {
+						return (
+							<SwiperSlide key={image._key}>
+								{image?.asset?.fluid && (
+									<Slide
+										size={image.size}
+										rotate={image.rotate}
+										alt={image.alt}
+										image={image.asset.fluid}
+										aspectRatio={image.asset.fluid.aspectRatio}
+									/>
+								)}
+							</SwiperSlide>
+						);
+					})}
+				</Slider>
+				<footer className={style.footer}>
+					{sketchbook.description && (
+						<PortableText
+							className={style.text}
+							blocks={sketchbook.description}
+							renderContainerOnSingleChild={true}
+						/>
+					)}
+				</footer>
+			</main>
+		</>
+	);
 };
 
 export const query = graphql`
-    {
-        sanitySketchbook {
-            title
-            description: _rawDescription
-            meta
-            images {
-                _key
-                size
-                rotate
-                alt
-                asset {
-                    fluid(maxWidth: 2000) {
-                        ...GatsbySanityImageFluid
-                        aspectRatio
-                    }
-                }
-            }
-        }
-    }
+	{
+		sanitySketchbook {
+			title
+			description: _rawDescription
+			meta
+			images {
+				_key
+				size
+				rotate
+				alt
+				asset {
+					fluid(maxWidth: 2000) {
+						...GatsbySanityImageFluid
+						aspectRatio
+					}
+				}
+			}
+		}
+	}
 `;
 
 export default Misc;

@@ -1,4 +1,4 @@
-import { BiPaintRoll } from "react-icons/bi";
+ import { BiPaintRoll } from "react-icons/bi";
 
 export default {
     title: "Project",

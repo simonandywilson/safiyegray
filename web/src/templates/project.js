@@ -129,16 +129,18 @@ const Project = ({ data }) => {
                 <Slider>
                     {project.images.map((image) => {
                         return (
-                            <SwiperSlide key={image._key}>
-                                <Slide
-                                    size={image.size}
-                                    rotate={image.rotate}
-                                    alt={image.alt}
-                                    image={image.asset.fluid}
-                                    aspectRatio={image.asset.fluid.aspectRatio}
-                                />
-                            </SwiperSlide>
-                        );
+							<SwiperSlide key={image._key}>
+								{image?.asset?.fluid && (
+									<Slide
+										size={image.size}
+										rotate={image.rotate}
+										alt={image.alt}
+										image={image.asset.fluid}
+										aspectRatio={image.asset.fluid.aspectRatio}
+									/>
+								)}
+							</SwiperSlide>
+						);
                     })}
                 </Slider>
                 <footer className={style.footer}>
