@@ -79,19 +79,19 @@ const CV = () => {
             <SEO
                 title={about.title}
                 description={about.meta}
-                banner={about.portrait.asset.fluid.src}
+                banner={about?.portrait?.asset?.fluid?.src}
             />
             <main className={style.main}>
                 <div className={style.left}>
                     <div className={style.portrait} ref={(el) => (portraitRef = el)}>
-                        <Image
+                        {about.portrait?.asset?.fluid && <Image
                             fluid={{
                                 ...about.portrait.asset.fluid,
                                 aspectRatio: 0.7,
                                 objectFit: "contain"
                             }}
                             durationFadeIn={1000}
-                        />
+                        />}
                     </div>
                 </div>
                 <div className={style.right}>
